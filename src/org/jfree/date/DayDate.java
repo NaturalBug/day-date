@@ -62,8 +62,36 @@ import java.util.*;
  * @author David Gilbert
  */
 public abstract class DayDate implements Comparable,
-		Serializable,
-		MonthConstants {
+		Serializable {
+
+	public static enum Month {
+		JANUARY(1),
+		FEBRUARY(2),
+		MARCH(3),
+		APRIL(4),
+		MAY(5),
+		JUNE(6),
+		JULY(7),
+		AUGUST(8),
+		SEPTEMBER(9),
+		OCTOBER(10),
+		NOVEMBER(11),
+		DECEMBER(12);		
+
+		Month(int index) {
+			this.index = index;
+		}
+
+		public static Month make(int monthIndex) {
+			for (Month m : Month.values()) {
+				if (m.index == monthIndex)
+					return m;
+			}
+			throw new IllegalArgumentException("Invalid month index " + monthIndex);
+		}
+
+		public final int index;
+	}
 
 	/** For serialization. */
 	private static final long serialVersionUID = -293716040467423637L;
@@ -288,70 +316,6 @@ public abstract class DayDate implements Comparable,
 	}
 
 	/**
-	 * Returns true if the supplied integer code represents a valid month.
-	 *
-	 * @param code the code being checked for validity.
-	 *
-	 * @return <code>true</code> if the supplied integer code represents a
-	 *         valid month.
-	 */
-	public static boolean isValidMonthCode(final int code) {
-
-		switch (code) {
-			case JANUARY:
-			case FEBRUARY:
-			case MARCH:
-			case APRIL:
-			case MAY:
-			case JUNE:
-			case JULY:
-			case AUGUST:
-			case SEPTEMBER:
-			case OCTOBER:
-			case NOVEMBER:
-			case DECEMBER:
-				return true;
-			default:
-				return false;
-		}
-
-	}
-
-	/**
-	 * Returns the quarter for the specified month.
-	 *
-	 * @param code the month code (1-12).
-	 *
-	 * @return the quarter that the month belongs to.
-	 * @throws java.lang.IllegalArgumentException
-	 */
-	public static int monthCodeToQuarter(final int code) {
-
-		switch (code) {
-			case JANUARY:
-			case FEBRUARY:
-			case MARCH:
-				return 1;
-			case APRIL:
-			case MAY:
-			case JUNE:
-				return 2;
-			case JULY:
-			case AUGUST:
-			case SEPTEMBER:
-				return 3;
-			case OCTOBER:
-			case NOVEMBER:
-			case DECEMBER:
-				return 4;
-			default:
-				throw new IllegalArgumentException(
-						"SerialDate.monthCodeToQuarter: invalid month code.");
-		}
-
-	}
-
-	/**
 	 * Returns a string representing the supplied month.
 	 * <P>
 	 * The string returned is the long form of the month name taken from the
@@ -382,12 +346,6 @@ public abstract class DayDate implements Comparable,
 	 */
 	public static String monthCodeToString(final int month,
 			final boolean shortened) {
-
-		// check arguments...
-		if (!isValidMonthCode(month)) {
-			throw new IllegalArgumentException(
-					"SerialDate.monthCodeToString: month outside valid range.");
-		}
 
 		final String[] months;
 
@@ -522,7 +480,7 @@ public abstract class DayDate implements Comparable,
 	public static int lastDayOfMonth(final int month, final int yyyy) {
 
 		final int result = LAST_DAY_OF_MONTH[month];
-		if (month != FEBRUARY) {
+		if (month != Month.FEBRUARY.index) {
 			return result;
 		} else if (isLeapYear(yyyy)) {
 			return result + 1;
