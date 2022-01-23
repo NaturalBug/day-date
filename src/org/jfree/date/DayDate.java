@@ -93,9 +93,6 @@ public abstract class DayDate implements Comparable,
 		public final int index;
 	}
 
-	/** For serialization. */
-	private static final long serialVersionUID = -293716040467423637L;
-
 	/** Date format symbols. */
 	public static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
