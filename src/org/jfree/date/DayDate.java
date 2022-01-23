@@ -93,7 +93,6 @@ public abstract class DayDate implements Comparable,
 		public final int index;
 	}
 
-	/** Date format symbols. */
 	public static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
 	/** The serial number for 1 January 1900. */
