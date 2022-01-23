@@ -76,7 +76,7 @@ public abstract class DayDate implements Comparable,
 		SEPTEMBER(9),
 		OCTOBER(10),
 		NOVEMBER(11),
-		DECEMBER(12);		
+		DECEMBER(12);
 
 		Month(int index) {
 			this.index = index;
