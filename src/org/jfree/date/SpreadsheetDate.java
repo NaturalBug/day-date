@@ -83,6 +83,12 @@ public class SpreadsheetDate extends DayDate {
 
 	public static final int LATEST_DATE_ORDINAL = 2958465; // 12/31/9999
 
+	/** The lowest year value supported by this date format. */
+	public static final int MINIMUM_YEAR_SUPPORTED = 1900;
+
+	/** The highest year value supported by this date format. */
+	public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
+
 	/** For serialization. */
 	private static final long serialVersionUID = -2039586705374454461L;
 
@@ -159,6 +165,10 @@ public class SpreadsheetDate extends DayDate {
 		// the day-month-year needs to be synchronised with the serial number...
 		calcDayMonthYear();
 
+	}
+
+	public SpreadsheetDate(int day, Month month, int year) {
+		this(day, month.index, year);
 	}
 
 	/**
