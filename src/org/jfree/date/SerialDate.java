@@ -706,7 +706,7 @@ public abstract class SerialDate implements Comparable,
 		int adjust = positiveDelta % 7;
 		if (adjust > 3)
 			adjust -= 7;
-			
+
 		return SerialDate.addDays(adjust, base);
 
 	}
@@ -747,7 +747,7 @@ public abstract class SerialDate implements Comparable,
 			case SerialDate.LAST_WEEK_IN_MONTH:
 				return "Last";
 			default:
-				return "SerialDate.weekInMonthToString(): invalid code.";
+				throw new IllegalArgumentException();
 		}
 
 	}
@@ -771,7 +771,7 @@ public abstract class SerialDate implements Comparable,
 			case SerialDate.FOLLOWING:
 				return "Following";
 			default:
-				return "ERROR : Relative To String";
+				throw new IllegalArgumentException();
 		}
 
 	}
