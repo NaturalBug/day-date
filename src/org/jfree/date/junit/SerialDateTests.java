@@ -195,13 +195,13 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testStringToMonthCode() {
 
-		int m = DayDate.stringToMonthCode("January");
+		int m = Month.parse("January").index;
 		assertEquals(MonthConstants.JANUARY, m);
 
-		m = DayDate.stringToMonthCode(" January ");
+		m = Month.parse(" January ").index;
 		assertEquals(MonthConstants.JANUARY, m);
 
-		m = DayDate.stringToMonthCode("Jan");
+		m = Month.parse("Jan").index;
 		assertEquals(MonthConstants.JANUARY, m);
 
 	}

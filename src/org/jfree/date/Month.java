@@ -36,4 +36,20 @@ public enum Month {
         return dateFormatSymbols.getShortMonths()[index - 1];
     }
 
+    public static Month parse(String s) {
+        s = s.trim();
+        for (Month m : Month.values())
+            if (m.matches(s))
+                return m;
+
+        try {
+            return fromInt(Integer.parseInt(s));
+        } catch (NumberFormatException e) {
+        }
+        throw new IllegalArgumentException("Invalid month " + s);
+    }
+
+    private boolean matches(String s) {
+        return s.equalsIgnoreCase(toString()) || s.equalsIgnoreCase(toShortString());
+    }
 }

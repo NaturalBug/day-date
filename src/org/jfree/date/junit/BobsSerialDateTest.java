@@ -99,80 +99,83 @@ public class BobsSerialDateTest extends TestCase {
 	}
 
 	public void testStringToMonthCode() throws Exception {
-		assertEquals(Month.JANUARY.index, stringToMonthCode("1"));
-		assertEquals(Month.FEBRUARY.index, stringToMonthCode("2"));
-		assertEquals(Month.MARCH.index, stringToMonthCode("3"));
-		assertEquals(Month.APRIL.index, stringToMonthCode("4"));
-		assertEquals(Month.MAY.index, stringToMonthCode("5"));
-		assertEquals(Month.JUNE.index, stringToMonthCode("6"));
-		assertEquals(Month.JULY.index, stringToMonthCode("7"));
-		assertEquals(Month.AUGUST.index, stringToMonthCode("8"));
-		assertEquals(Month.SEPTEMBER.index, stringToMonthCode("9"));
-		assertEquals(Month.OCTOBER.index, stringToMonthCode("10"));
-		assertEquals(Month.NOVEMBER.index, stringToMonthCode("11"));
-		assertEquals(Month.DECEMBER.index, stringToMonthCode("12"));
+		assertEquals(Month.JANUARY.index, Month.parse("1").index);
+		assertEquals(Month.FEBRUARY.index, Month.parse("2").index);
+		assertEquals(Month.MARCH.index, Month.parse("3").index);
+		assertEquals(Month.APRIL.index, Month.parse("4").index);
+		assertEquals(Month.MAY.index, Month.parse("5").index);
+		assertEquals(Month.JUNE.index, Month.parse("6").index);
+		assertEquals(Month.JULY.index, Month.parse("7").index);
+		assertEquals(Month.AUGUST.index, Month.parse("8").index);
+		assertEquals(Month.SEPTEMBER.index, Month.parse("9").index);
+		assertEquals(Month.OCTOBER.index, Month.parse("10").index);
+		assertEquals(Month.NOVEMBER.index, Month.parse("11").index);
+		assertEquals(Month.DECEMBER.index, Month.parse("12").index);
 
-		assertEquals(-1, stringToMonthCode("0"));
-		assertEquals(-1, stringToMonthCode("13"));
-
-		assertEquals(-1, stringToMonthCode("Hello"));
-
-		for (int m = 1; m <= 12; m++) {
-			assertEquals(m, stringToMonthCode(Month.fromInt(m).toString()));
-			assertEquals(m, stringToMonthCode(Month.fromInt(m).toShortString()));
+		try {
+			Month.parse("0");
+			Month.parse("13");
+			Month.parse("Hello");
+			fail("Invalid day of month string should throw exception");
+		} catch (IllegalArgumentException e) {
 		}
 
-		assertEquals(1, stringToMonthCode("jan"));
-		assertEquals(2, stringToMonthCode("feb"));
-		assertEquals(3, stringToMonthCode("mar"));
-		assertEquals(4, stringToMonthCode("apr"));
-		assertEquals(5, stringToMonthCode("may"));
-		assertEquals(6, stringToMonthCode("jun"));
-		assertEquals(7, stringToMonthCode("jul"));
-		assertEquals(8, stringToMonthCode("aug"));
-		assertEquals(9, stringToMonthCode("sep"));
-		assertEquals(10, stringToMonthCode("oct"));
-		assertEquals(11, stringToMonthCode("nov"));
-		assertEquals(12, stringToMonthCode("dec"));
+		for (int m = 1; m <= 12; m++) {
+			assertEquals(m, Month.parse(Month.fromInt(m).toString()).index);
+			assertEquals(m, Month.parse(Month.fromInt(m).toShortString()).index);
+		}
 
-		assertEquals(1, stringToMonthCode("JAN"));
-		assertEquals(2, stringToMonthCode("FEB"));
-		assertEquals(3, stringToMonthCode("MAR"));
-		assertEquals(4, stringToMonthCode("APR"));
-		assertEquals(5, stringToMonthCode("MAY"));
-		assertEquals(6, stringToMonthCode("JUN"));
-		assertEquals(7, stringToMonthCode("JUL"));
-		assertEquals(8, stringToMonthCode("AUG"));
-		assertEquals(9, stringToMonthCode("SEP"));
-		assertEquals(10, stringToMonthCode("OCT"));
-		assertEquals(11, stringToMonthCode("NOV"));
-		assertEquals(12, stringToMonthCode("DEC"));
+		assertEquals(1, Month.parse("jan").index);
+		assertEquals(2, Month.parse("feb").index);
+		assertEquals(3, Month.parse("mar").index);
+		assertEquals(4, Month.parse("apr").index);
+		assertEquals(5, Month.parse("may").index);
+		assertEquals(6, Month.parse("jun").index);
+		assertEquals(7, Month.parse("jul").index);
+		assertEquals(8, Month.parse("aug").index);
+		assertEquals(9, Month.parse("sep").index);
+		assertEquals(10, Month.parse("oct").index);
+		assertEquals(11, Month.parse("nov").index);
+		assertEquals(12, Month.parse("dec").index);
 
-		assertEquals(1, stringToMonthCode("january"));
-		assertEquals(2, stringToMonthCode("february"));
-		assertEquals(3, stringToMonthCode("march"));
-		assertEquals(4, stringToMonthCode("april"));
-		assertEquals(5, stringToMonthCode("may"));
-		assertEquals(6, stringToMonthCode("june"));
-		assertEquals(7, stringToMonthCode("july"));
-		assertEquals(8, stringToMonthCode("august"));
-		assertEquals(9, stringToMonthCode("september"));
-		assertEquals(10, stringToMonthCode("october"));
-		assertEquals(11, stringToMonthCode("november"));
-		assertEquals(12, stringToMonthCode("december"));
+		assertEquals(1, Month.parse("JAN").index);
+		assertEquals(2, Month.parse("FEB").index);
+		assertEquals(3, Month.parse("MAR").index);
+		assertEquals(4, Month.parse("APR").index);
+		assertEquals(5, Month.parse("MAY").index);
+		assertEquals(6, Month.parse("JUN").index);
+		assertEquals(7, Month.parse("JUL").index);
+		assertEquals(8, Month.parse("AUG").index);
+		assertEquals(9, Month.parse("SEP").index);
+		assertEquals(10, Month.parse("OCT").index);
+		assertEquals(11, Month.parse("NOV").index);
+		assertEquals(12, Month.parse("DEC").index);
 
-		assertEquals(1, stringToMonthCode("JANUARY"));
-		assertEquals(2, stringToMonthCode("FEBRUARY"));
-		assertEquals(3, stringToMonthCode("MAR"));
-		assertEquals(4, stringToMonthCode("APRIL"));
-		assertEquals(5, stringToMonthCode("MAY"));
-		assertEquals(6, stringToMonthCode("JUNE"));
-		assertEquals(7, stringToMonthCode("JULY"));
-		assertEquals(8, stringToMonthCode("AUGUST"));
-		assertEquals(9, stringToMonthCode("SEPTEMBER"));
-		assertEquals(10, stringToMonthCode("OCTOBER"));
-		assertEquals(11, stringToMonthCode("NOVEMBER"));
-		assertEquals(12, stringToMonthCode("DECEMBER"));
+		assertEquals(1, Month.parse("january").index);
+		assertEquals(2, Month.parse("february").index);
+		assertEquals(3, Month.parse("march").index);
+		assertEquals(4, Month.parse("april").index);
+		assertEquals(5, Month.parse("may").index);
+		assertEquals(6, Month.parse("june").index);
+		assertEquals(7, Month.parse("july").index);
+		assertEquals(8, Month.parse("august").index);
+		assertEquals(9, Month.parse("september").index);
+		assertEquals(10, Month.parse("october").index);
+		assertEquals(11, Month.parse("november").index);
+		assertEquals(12, Month.parse("december").index);
+
+		assertEquals(1, Month.parse("JANUARY").index);
+		assertEquals(2, Month.parse("FEBRUARY").index);
+		assertEquals(3, Month.parse("MAR").index);
+		assertEquals(4, Month.parse("APRIL").index);
+		assertEquals(5, Month.parse("MAY").index);
+		assertEquals(6, Month.parse("JUNE").index);
+		assertEquals(7, Month.parse("JULY").index);
+		assertEquals(8, Month.parse("AUGUST").index);
+		assertEquals(9, Month.parse("SEPTEMBER").index);
+		assertEquals(10, Month.parse("OCTOBER").index);
+		assertEquals(11, Month.parse("NOVEMBER").index);
+		assertEquals(12, Month.parse("DECEMBER").index);
 	}
 
 	public void testIsLeapYear() throws Exception {
