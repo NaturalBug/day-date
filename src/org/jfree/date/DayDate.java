@@ -132,17 +132,15 @@ public abstract class DayDate implements Comparable,
 		}
 	}
 
-	/** Useful range constant. */
-	public static final int INCLUDE_NONE = 0;
+	public enum DateInterval {
+		CLOSED(0), CLOSED_LEFT(1), CLOSED_RIGHT(2), OPEN(3);
 
-	/** Useful range constant. */
-	public static final int INCLUDE_FIRST = 1;
+		public final int index;
 
-	/** Useful range constant. */
-	public static final int INCLUDE_SECOND = 2;
-
-	/** Useful range constant. */
-	public static final int INCLUDE_BOTH = 3;
+		DateInterval(int index) {
+			this.index = index;
+		}
+	}
 
 	/**
 	 * Useful constant for specifying a day of the week relative to a fixed
