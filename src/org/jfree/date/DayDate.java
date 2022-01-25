@@ -92,7 +92,7 @@ public abstract class DayDate implements Comparable,
 		public int index;
 	}
 
-	public static DateFormatSymbols DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
+	public static DateFormatSymbols dateFormatSymbols = new SimpleDateFormat().getDateFormatSymbols();
 
 	private static int[] LAST_DAY_OF_MONTH = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -131,27 +131,9 @@ public abstract class DayDate implements Comparable,
 	 *
 	 * @return an array of month names.
 	 */
-	public static String[] getMonths() {
+	public static String[] getMonthNames() {
 
-		return getMonths(false);
-
-	}
-
-	/**
-	 * Returns an array of month names.
-	 *
-	 * @param shortened a flag indicating that shortened month names should
-	 *                  be returned.
-	 *
-	 * @return an array of month names.
-	 */
-	public static String[] getMonths(boolean shortened) {
-
-		if (shortened) {
-			return DATE_FORMAT_SYMBOLS.getShortMonths();
-		} else {
-			return DATE_FORMAT_SYMBOLS.getMonths();
-		}
+		return dateFormatSymbols.getMonths();
 
 	}
 
@@ -190,9 +172,9 @@ public abstract class DayDate implements Comparable,
 		String[] months;
 
 		if (shortened) {
-			months = DATE_FORMAT_SYMBOLS.getShortMonths();
+			months = dateFormatSymbols.getShortMonths();
 		} else {
-			months = DATE_FORMAT_SYMBOLS.getMonths();
+			months = dateFormatSymbols.getMonths();
 		}
 
 		return months[month - 1];
@@ -213,8 +195,8 @@ public abstract class DayDate implements Comparable,
 	 */
 	public static int stringToMonthCode(String s) {
 
-		String[] shortMonthNames = DATE_FORMAT_SYMBOLS.getShortMonths();
-		String[] monthNames = DATE_FORMAT_SYMBOLS.getMonths();
+		String[] shortMonthNames = dateFormatSymbols.getShortMonths();
+		String[] monthNames = dateFormatSymbols.getMonths();
 
 		int result = -1;
 		s = s.trim();
