@@ -74,7 +74,7 @@ public class SerialDateTests extends TestCase {
 	 *
 	 * @param name the name.
 	 */
-	public SerialDateTests(final String name) {
+	public SerialDateTests(String name) {
 		super(name);
 	}
 
@@ -98,8 +98,8 @@ public class SerialDateTests extends TestCase {
 	 * 9 Nov 2001 plus two months should be 9 Jan 2002.
 	 */
 	public void testAddMonthsTo9Nov2001() {
-		final DayDate jan9Y2002 = DayDate.addMonths(2, this.nov9Y2001);
-		final DayDate answer = DayDateFactory.makeDate(9, 1, 2002);
+		DayDate jan9Y2002 = DayDate.addMonths(2, this.nov9Y2001);
+		DayDate answer = DayDateFactory.makeDate(9, 1, 2002);
 		assertEquals(answer, jan9Y2002);
 	}
 
@@ -107,8 +107,8 @@ public class SerialDateTests extends TestCase {
 	 * A test case for a reported bug, now fixed.
 	 */
 	public void testAddMonthsTo5Oct2003() {
-		final DayDate d1 = DayDateFactory.makeDate(5, MonthConstants.OCTOBER, 2003);
-		final DayDate d2 = DayDate.addMonths(2, d1);
+		DayDate d1 = DayDateFactory.makeDate(5, MonthConstants.OCTOBER, 2003);
+		DayDate d2 = DayDate.addMonths(2, d1);
 		assertEquals(d2, DayDateFactory.makeDate(5, MonthConstants.DECEMBER, 2003));
 	}
 
@@ -116,8 +116,8 @@ public class SerialDateTests extends TestCase {
 	 * A test case for a reported bug, now fixed.
 	 */
 	public void testAddMonthsTo1Jan2003() {
-		final DayDate d1 = DayDateFactory.makeDate(1, MonthConstants.JANUARY, 2003);
-		final DayDate d2 = DayDate.addMonths(0, d1);
+		DayDate d1 = DayDateFactory.makeDate(1, MonthConstants.JANUARY, 2003);
+		DayDate d2 = DayDate.addMonths(0, d1);
 		assertEquals(d2, d1);
 	}
 
@@ -164,7 +164,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testWeekdayCodeToString() {
 
-		final String test = DayDate.weekdayCodeToString(DayDate.Day.SATURDAY.index);
+		String test = DayDate.weekdayCodeToString(DayDate.Day.SATURDAY.index);
 		assertEquals("Saturday", test);
 
 	}
@@ -209,7 +209,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testMonthCodeToStringCode() {
 
-		final String test = DayDate.monthCodeToString(MonthConstants.DECEMBER);
+		String test = DayDate.monthCodeToString(MonthConstants.DECEMBER);
 		assertEquals("December", test);
 
 	}
