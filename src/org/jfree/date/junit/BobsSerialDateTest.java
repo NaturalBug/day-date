@@ -71,31 +71,31 @@ public class BobsSerialDateTest extends TestCase {
 	}
 
 	public void testMonthCodeToString() throws Exception {
-		assertEquals("January", monthCodeToString(Month.JANUARY.index));
-		assertEquals("February", monthCodeToString(Month.FEBRUARY.index));
-		assertEquals("March", monthCodeToString(Month.MARCH.index));
-		assertEquals("April", monthCodeToString(Month.APRIL.index));
-		assertEquals("May", monthCodeToString(Month.MAY.index));
-		assertEquals("June", monthCodeToString(Month.JUNE.index));
-		assertEquals("July", monthCodeToString(Month.JULY.index));
-		assertEquals("August", monthCodeToString(Month.AUGUST.index));
-		assertEquals("September", monthCodeToString(Month.SEPTEMBER.index));
-		assertEquals("October", monthCodeToString(Month.OCTOBER.index));
-		assertEquals("November", monthCodeToString(Month.NOVEMBER.index));
-		assertEquals("December", monthCodeToString(Month.DECEMBER.index));
+		assertEquals("January", Month.JANUARY.toString());
+		assertEquals("February", Month.FEBRUARY.toString());
+		assertEquals("March", Month.MARCH.toString());
+		assertEquals("April", Month.APRIL.toString());
+		assertEquals("May", Month.MAY.toString());
+		assertEquals("June", Month.JUNE.toString());
+		assertEquals("July", Month.JULY.toString());
+		assertEquals("August", Month.AUGUST.toString());
+		assertEquals("September", Month.SEPTEMBER.toString());
+		assertEquals("October", Month.OCTOBER.toString());
+		assertEquals("November", Month.NOVEMBER.toString());
+		assertEquals("December", Month.DECEMBER.toString());
 
-		assertEquals("Jan", monthCodeToString(Month.JANUARY.index, true));
-		assertEquals("Feb", monthCodeToString(Month.FEBRUARY.index, true));
-		assertEquals("Mar", monthCodeToString(Month.MARCH.index, true));
-		assertEquals("Apr", monthCodeToString(Month.APRIL.index, true));
-		assertEquals("May", monthCodeToString(Month.MAY.index, true));
-		assertEquals("Jun", monthCodeToString(Month.JUNE.index, true));
-		assertEquals("Jul", monthCodeToString(Month.JULY.index, true));
-		assertEquals("Aug", monthCodeToString(Month.AUGUST.index, true));
-		assertEquals("Sep", monthCodeToString(Month.SEPTEMBER.index, true));
-		assertEquals("Oct", monthCodeToString(Month.OCTOBER.index, true));
-		assertEquals("Nov", monthCodeToString(Month.NOVEMBER.index, true));
-		assertEquals("Dec", monthCodeToString(Month.DECEMBER.index, true));
+		assertEquals("Jan", Month.JANUARY.toShortString());
+		assertEquals("Feb", Month.FEBRUARY.toShortString());
+		assertEquals("Mar", Month.MARCH.toShortString());
+		assertEquals("Apr", Month.APRIL.toShortString());
+		assertEquals("May", Month.MAY.toShortString());
+		assertEquals("Jun", Month.JUNE.toShortString());
+		assertEquals("Jul", Month.JULY.toShortString());
+		assertEquals("Aug", Month.AUGUST.toShortString());
+		assertEquals("Sep", Month.SEPTEMBER.toShortString());
+		assertEquals("Oct", Month.OCTOBER.toShortString());
+		assertEquals("Nov", Month.NOVEMBER.toShortString());
+		assertEquals("Dec", Month.DECEMBER.toShortString());
 	}
 
 	public void testStringToMonthCode() throws Exception {
@@ -118,8 +118,8 @@ public class BobsSerialDateTest extends TestCase {
 		assertEquals(-1, stringToMonthCode("Hello"));
 
 		for (int m = 1; m <= 12; m++) {
-			assertEquals(m, stringToMonthCode(monthCodeToString(m, false)));
-			assertEquals(m, stringToMonthCode(monthCodeToString(m, true)));
+			assertEquals(m, stringToMonthCode(Month.fromInt(m).toString()));
+			assertEquals(m, stringToMonthCode(Month.fromInt(m).toShortString()));
 		}
 
 		assertEquals(1, stringToMonthCode("jan"));

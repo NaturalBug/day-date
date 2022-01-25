@@ -108,50 +108,6 @@ public abstract class DayDate implements Comparable,
 	}
 
 	/**
-	 * Returns a string representing the supplied month.
-	 * <P>
-	 * The string returned is the long form of the month name taken from the
-	 * default locale.
-	 *
-	 * @param month the month.
-	 *
-	 * @return a string representing the supplied month.
-	 */
-	public static String monthCodeToString(int month) {
-
-		return monthCodeToString(month, false);
-
-	}
-
-	/**
-	 * Returns a string representing the supplied month.
-	 * <P>
-	 * The string returned is the long or short form of the month name taken
-	 * from the default locale.
-	 *
-	 * @param month     the month.
-	 * @param shortened if <code>true</code> return the abbreviation of the
-	 *                  month.
-	 *
-	 * @return a string representing the supplied month.
-	 * @throws java.lang.IllegalArgumentException
-	 */
-	public static String monthCodeToString(int month,
-			boolean shortened) {
-
-		String[] months;
-
-		if (shortened) {
-			months = dateFormatSymbols.getShortMonths();
-		} else {
-			months = dateFormatSymbols.getMonths();
-		}
-
-		return months[month - 1];
-
-	}
-
-	/**
 	 * Converts a string to a month code.
 	 * <P>
 	 * This method will return one of the constants JANUARY, FEBRUARY, ...,
@@ -493,7 +449,7 @@ public abstract class DayDate implements Comparable,
 	 * @return a string representation of the date.
 	 */
 	public String toString() {
-		return getDayOfMonth() + "-" + DayDate.monthCodeToString(getMonth())
+		return getDayOfMonth() + "-" + Month.fromInt(getMonth())
 				+ "-" + getYYYY();
 	}
 

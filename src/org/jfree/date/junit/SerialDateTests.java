@@ -61,6 +61,7 @@ import org.jfree.date.MonthConstants;
 import org.jfree.date.Day;
 import org.jfree.date.DayDate;
 import org.jfree.date.DayDateFactory;
+import org.jfree.date.Month;
 
 /**
  * Some JUnit tests for the {@link DayDate} class.
@@ -210,7 +211,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testMonthCodeToStringCode() {
 
-		String test = DayDate.monthCodeToString(MonthConstants.DECEMBER);
+		String test = Month.fromInt(MonthConstants.DECEMBER).toString();
 		assertEquals("December", test);
 
 	}
