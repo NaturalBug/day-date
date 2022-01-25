@@ -152,14 +152,6 @@ public abstract class DayDate implements Comparable,
 		}
 	}
 
-	/**
-	 * Converts the supplied string to a day of the week.
-	 *
-	 * @param s a string representing the day of the week.
-	 *
-	 * @return <code>-1</code> if the string is not convertable, the day of
-	 *         the week otherwise.
-	 */
 	public static int stringToWeekdayCode(String s) {
 
 		final String[] shortWeekdayNames = DATE_FORMAT_SYMBOLS.getShortWeekdays();
