@@ -43,6 +43,8 @@
 
 package org.jfree.date;
 
+import org.jfree.date.DayDate.WeekdayRange;
+
 /**
  * An annual date rule that returns a date for each year based on (a) a
  * reference rule; (b) a day of the week; and (c) a selection parameter
@@ -63,14 +65,14 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
      */
     private int dayOfWeek;
 
-    /** Specifies which day of the week (PRECEDING, NEAREST or FOLLOWING). */
+    /** Specifies which day of the week (LAST, NEAREST or NEXT). */
     private int relative;
 
     /**
      * Default constructor - builds a rule for the Monday following 1 January.
      */
     public RelativeDayOfWeekRule() {
-        this(new DayAndMonthRule(), DayDate.Day.MONDAY.index, DayDate.FOLLOWING);
+        this(new DayAndMonthRule(), DayDate.Day.MONDAY.index, WeekdayRange.NEXT.index);
     }
 
     /**
@@ -184,21 +186,12 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
         final DayDate base = this.subrule.getDate(year);
 
         if (base != null) {
-            switch (this.relative) {
-                case (DayDate.PRECEDING):
-                    result = DayDate.getPreviousDayOfWeek(this.dayOfWeek,
-                            base);
-                    break;
-                case (DayDate.NEAREST):
-                    result = DayDate.getNearestDayOfWeek(this.dayOfWeek,
-                            base);
-                    break;
-                case (DayDate.FOLLOWING):
-                    result = DayDate.getFollowingDayOfWeek(this.dayOfWeek,
-                            base);
-                    break;
-                default:
-                    break;
+            if (this.relative == WeekdayRange.LAST.index) {
+                result = DayDate.getPreviousDayOfWeek(this.dayOfWeek, base);
+            } else if (this.relative == WeekdayRange.NEAREST.index) {
+                result = DayDate.getNearestDayOfWeek(this.dayOfWeek, base);
+            } else if (this.relative == WeekdayRange.NEXT.index) {
+                result = DayDate.getFollowingDayOfWeek(this.dayOfWeek, base);
             }
         }
         return result;

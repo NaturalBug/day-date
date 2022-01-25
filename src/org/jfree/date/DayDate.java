@@ -142,23 +142,15 @@ public abstract class DayDate implements Comparable,
 		}
 	}
 
-	/**
-	 * Useful constant for specifying a day of the week relative to a fixed
-	 * date.
-	 */
-	public static final int PRECEDING = -1;
+	public enum WeekdayRange {
+		LAST(-1), NEXT(0), NEAREST(1);
 
-	/**
-	 * Useful constant for specifying a day of the week relative to a fixed
-	 * date.
-	 */
-	public static final int NEAREST = 0;
+		public final int index;
 
-	/**
-	 * Useful constant for specifying a day of the week relative to a fixed
-	 * date.
-	 */
-	public static final int FOLLOWING = 1;
+		WeekdayRange(int index) {
+			this.index = index;
+		}
+	}
 
 	/** A description for the date. */
 	private String description;
@@ -594,15 +586,14 @@ public abstract class DayDate implements Comparable,
 	 */
 	public static String relativeToString(final int relative) {
 
-		switch (relative) {
-			case DayDate.PRECEDING:
-				return "Preceding";
-			case DayDate.NEAREST:
-				return "Nearest";
-			case DayDate.FOLLOWING:
-				return "Following";
-			default:
-				throw new IllegalArgumentException();
+		if (relative == WeekdayRange.LAST.index) {
+			return "Last";
+		} else if (relative == WeekdayRange.NEAREST.index) {
+			return "Nearest";
+		} else if (relative == WeekdayRange.NEXT.index) {
+			return "Next";
+		} else {
+			throw new IllegalArgumentException();
 		}
 
 	}

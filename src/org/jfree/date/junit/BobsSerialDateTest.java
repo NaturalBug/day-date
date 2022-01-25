@@ -431,9 +431,9 @@ public class BobsSerialDateTest extends TestCase {
 	}
 
 	public void testRelativeToString() throws Exception {
-		assertEquals("Preceding", relativeToString(PRECEDING));
-		assertEquals("Nearest", relativeToString(NEAREST));
-		assertEquals("Following", relativeToString(FOLLOWING));
+		assertEquals("Last", relativeToString(WeekdayRange.LAST.index));
+		assertEquals("Nearest", relativeToString(WeekdayRange.NEAREST.index));
+		assertEquals("Next", relativeToString(WeekdayRange.NEXT.index));
 
 		try {
 			relativeToString(-1000);
