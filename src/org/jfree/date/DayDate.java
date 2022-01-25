@@ -40,7 +40,6 @@ package org.jfree.date;
 
 import java.io.Serializable;
 import java.text.*;
-import java.util.*;
 
 /**
  * An abstract class that defines our requirements for manipulating dates,
@@ -95,31 +94,6 @@ public abstract class DayDate implements Comparable,
 
 	public static DateFormatSymbols DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
-	public static enum Day {
-		MONDAY(Calendar.MONDAY),
-		TUESDAY(Calendar.TUESDAY),
-		WEDNESDAY(Calendar.WEDNESDAY),
-		THURSDAY(Calendar.THURSDAY),
-		FRIDAY(Calendar.FRIDAY),
-		SATURDAY(Calendar.SATURDAY),
-		SUNDAY(Calendar.SUNDAY);
-
-		public int index;
-
-		Day(int day) {
-			index = day;
-		}
-
-		public static Day fromInt(int index) throws IllegalArgumentException {
-			for (Day d : Day.values()) {
-				if (d.index == index) {
-					return d;
-				}
-			}
-			throw new IllegalArgumentException(String.format("Illegal day index: %d.", index));
-		}
-	}
-
 	private static int[] LAST_DAY_OF_MONTH = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	public enum WeekInMonth {
@@ -150,39 +124,6 @@ public abstract class DayDate implements Comparable,
 		WeekdayRange(int index) {
 			this.index = index;
 		}
-	}
-
-	public static int stringToWeekdayCode(String s) {
-
-		String[] shortWeekdayNames = DATE_FORMAT_SYMBOLS.getShortWeekdays();
-		String[] weekDayNames = DATE_FORMAT_SYMBOLS.getWeekdays();
-
-		int result = -1;
-		s = s.trim();
-		for (int i = 0; i < weekDayNames.length; i++) {
-			if (s.equalsIgnoreCase(shortWeekdayNames[i]) || s.equalsIgnoreCase(weekDayNames[i])) {
-				result = i;
-				break;
-			}
-		}
-		return result;
-
-	}
-
-	/**
-	 * Returns a string representing the supplied day-of-the-week.
-	 * <P>
-	 * Need to find a better approach.
-	 *
-	 * @param weekday the day of the week.
-	 *
-	 * @return a string representing the supplied day-of-the-week.
-	 */
-	public static String weekdayCodeToString(int weekday) {
-
-		String[] weekdays = DATE_FORMAT_SYMBOLS.getWeekdays();
-		return weekdays[weekday];
-
 	}
 
 	/**
@@ -444,7 +385,7 @@ public abstract class DayDate implements Comparable,
 			DayDate base) {
 
 		// check arguments...
-		Day.fromInt(targetWeekday);
+		Day.make(targetWeekday);
 
 		// find the date...
 		int adjust;
@@ -473,7 +414,7 @@ public abstract class DayDate implements Comparable,
 			DayDate base) {
 
 		// check arguments...
-		Day.fromInt(targetWeekday);
+		Day.make(targetWeekday);
 
 		// find the date...
 		int adjust;
@@ -501,7 +442,7 @@ public abstract class DayDate implements Comparable,
 			DayDate base) {
 
 		// check arguments...
-		Day.fromInt(targetDOW);
+		Day.make(targetDOW);
 
 		// find the date...
 		int delta = targetDOW - base.getDayOfWeek();

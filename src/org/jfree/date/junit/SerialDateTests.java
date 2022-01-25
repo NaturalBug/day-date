@@ -58,6 +58,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.date.MonthConstants;
+import org.jfree.date.Day;
 import org.jfree.date.DayDate;
 import org.jfree.date.DayDateFactory;
 
@@ -126,7 +127,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testMondayPrecedingFriday9Nov2001() {
 		DayDate mondayBefore = DayDate.getPreviousDayOfWeek(
-				DayDate.Day.MONDAY.index, this.nov9Y2001);
+				Day.MONDAY.index, this.nov9Y2001);
 		assertEquals(5, mondayBefore.getDayOfMonth());
 	}
 
@@ -135,7 +136,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testMondayFollowingFriday9Nov2001() {
 		DayDate mondayAfter = DayDate.getFollowingDayOfWeek(
-				DayDate.Day.MONDAY.index, this.nov9Y2001);
+				Day.MONDAY.index, this.nov9Y2001);
 		assertEquals(12, mondayAfter.getDayOfMonth());
 	}
 
@@ -144,7 +145,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testMondayNearestFriday9Nov2001() {
 		DayDate mondayNearest = DayDate.getNearestDayOfWeek(
-				DayDate.Day.MONDAY.index, this.nov9Y2001);
+				Day.MONDAY.index, this.nov9Y2001);
 		assertEquals(12, mondayNearest.getDayOfMonth());
 	}
 
@@ -153,7 +154,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testMondayNearest22Jan1970() {
 		DayDate jan22Y1970 = DayDateFactory.makeDate(22, MonthConstants.JANUARY, 1970);
-		DayDate mondayNearest = DayDate.getNearestDayOfWeek(DayDate.Day.MONDAY.index, jan22Y1970);
+		DayDate mondayNearest = DayDate.getNearestDayOfWeek(Day.MONDAY.index, jan22Y1970);
 		assertEquals(19, mondayNearest.getDayOfMonth());
 	}
 
@@ -164,7 +165,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testWeekdayCodeToString() {
 
-		String test = DayDate.weekdayCodeToString(DayDate.Day.SATURDAY.index);
+		String test = Day.SATURDAY.toString();
 		assertEquals("Saturday", test);
 
 	}
@@ -176,13 +177,13 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testStringToWeekday() {
 
-		int weekday = DayDate.stringToWeekdayCode("Wednesday");
-		assertEquals(DayDate.Day.WEDNESDAY.index, weekday);
+		int weekday = Day.parse("Wednesday").index;
+		assertEquals(Day.WEDNESDAY.index, weekday);
 
-		weekday = DayDate.stringToWeekdayCode(" Wednesday ");
-		assertEquals(DayDate.Day.WEDNESDAY.index, weekday);
-		weekday = DayDate.stringToWeekdayCode("Wed");
-		assertEquals(DayDate.Day.WEDNESDAY.index, weekday);
+		weekday = Day.parse(" Wednesday ").index;
+		assertEquals(Day.WEDNESDAY.index, weekday);
+		weekday = Day.parse("Wed").index;
+		assertEquals(Day.WEDNESDAY.index, weekday);
 
 	}
 

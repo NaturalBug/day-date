@@ -10,60 +10,64 @@ public class BobsSerialDateTest extends TestCase {
 
 	public void testStringToWeekdayCode() throws Exception {
 
-		assertEquals(-1, stringToWeekdayCode("Hello"));
-		assertEquals(Day.MONDAY.index, stringToWeekdayCode("Monday"));
-		assertEquals(Day.MONDAY.index, stringToWeekdayCode("Mon"));
-		assertEquals(Day.MONDAY.index, stringToWeekdayCode("monday"));
-		assertEquals(Day.MONDAY.index, stringToWeekdayCode("MONDAY"));
-		assertEquals(Day.MONDAY.index, stringToWeekdayCode("mon"));
+		try {
+			Day.parse("Hello");
+			fail("Invalid day of day string should throw exception");
+		} catch (IllegalArgumentException e) {
+		}
+		assertEquals(Day.MONDAY.index, Day.parse("Monday").index);
+		assertEquals(Day.MONDAY.index, Day.parse("Mon").index);
+		assertEquals(Day.MONDAY.index, Day.parse("monday").index);
+		assertEquals(Day.MONDAY.index, Day.parse("MONDAY").index);
+		assertEquals(Day.MONDAY.index, Day.parse("mon").index);
 
-		assertEquals(Day.TUESDAY.index, stringToWeekdayCode("Tuesday"));
-		assertEquals(Day.TUESDAY.index, stringToWeekdayCode("Tue"));
-		assertEquals(Day.TUESDAY.index, stringToWeekdayCode("tuesday"));
-		assertEquals(Day.TUESDAY.index, stringToWeekdayCode("TUESDAY"));
-		assertEquals(Day.TUESDAY.index, stringToWeekdayCode("tue"));
+		assertEquals(Day.TUESDAY.index, Day.parse("Tuesday").index);
+		assertEquals(Day.TUESDAY.index, Day.parse("Tue").index);
+		assertEquals(Day.TUESDAY.index, Day.parse("tuesday").index);
+		assertEquals(Day.TUESDAY.index, Day.parse("TUESDAY").index);
+		assertEquals(Day.TUESDAY.index, Day.parse("tue").index);
 		// assertEquals(TUESDAY, stringToWeekdayCode("tues"));
 
-		assertEquals(Day.WEDNESDAY.index, stringToWeekdayCode("Wednesday"));
-		assertEquals(Day.WEDNESDAY.index, stringToWeekdayCode("Wed"));
-		assertEquals(Day.WEDNESDAY.index, stringToWeekdayCode("wednesday"));
-		assertEquals(Day.WEDNESDAY.index, stringToWeekdayCode("WEDNESDAY"));
-		assertEquals(Day.WEDNESDAY.index, stringToWeekdayCode("wed"));
+		assertEquals(Day.WEDNESDAY.index, Day.parse("Wednesday").index);
+		assertEquals(Day.WEDNESDAY.index, Day.parse("Wed").index);
+		assertEquals(Day.WEDNESDAY.index, Day.parse("wednesday").index);
+		assertEquals(Day.WEDNESDAY.index, Day.parse("WEDNESDAY").index);
+		assertEquals(Day.WEDNESDAY.index, Day.parse("wed").index);
 
-		assertEquals(Day.THURSDAY.index, stringToWeekdayCode("Thursday"));
-		assertEquals(Day.THURSDAY.index, stringToWeekdayCode("Thu"));
-		assertEquals(Day.THURSDAY.index, stringToWeekdayCode("thursday"));
-		assertEquals(Day.THURSDAY.index, stringToWeekdayCode("THURSDAY"));
-		assertEquals(Day.THURSDAY.index, stringToWeekdayCode("thu"));
+		assertEquals(Day.THURSDAY.index, Day.parse("Thursday").index);
+		assertEquals(Day.THURSDAY.index, Day.parse("Thu").index);
+		assertEquals(Day.THURSDAY.index, Day.parse("thursday").index);
+		assertEquals(Day.THURSDAY.index, Day.parse("THURSDAY").index);
+		assertEquals(Day.THURSDAY.index, Day.parse("thu").index);
 		// assertEquals(THURSDAY, stringToWeekdayCode("thurs"));
 
-		assertEquals(Day.FRIDAY.index, stringToWeekdayCode("Friday"));
-		assertEquals(Day.FRIDAY.index, stringToWeekdayCode("Fri"));
-		assertEquals(Day.FRIDAY.index, stringToWeekdayCode("friday"));
-		assertEquals(Day.FRIDAY.index, stringToWeekdayCode("FRIDAY"));
-		assertEquals(Day.FRIDAY.index, stringToWeekdayCode("fri"));
+		assertEquals(Day.FRIDAY.index, Day.parse("Friday").index);
+		assertEquals(Day.FRIDAY.index, Day.parse("Fri").index);
+		assertEquals(Day.FRIDAY.index, Day.parse("friday").index);
+		assertEquals(Day.FRIDAY.index, Day.parse("FRIDAY").index);
+		assertEquals(Day.FRIDAY.index, Day.parse("fri").index);
 
-		assertEquals(Day.SATURDAY.index, stringToWeekdayCode("Saturday"));
-		assertEquals(Day.SATURDAY.index, stringToWeekdayCode("Sat"));
-		assertEquals(Day.SATURDAY.index, stringToWeekdayCode("saturday"));
-		assertEquals(Day.SATURDAY.index, stringToWeekdayCode("SATURDAY"));
-		assertEquals(Day.SATURDAY.index, stringToWeekdayCode("sat"));
+		assertEquals(Day.SATURDAY.index, Day.parse("Saturday").index);
+		assertEquals(Day.SATURDAY.index, Day.parse("Sat").index);
+		assertEquals(Day.SATURDAY.index, Day.parse("saturday").index);
+		assertEquals(Day.SATURDAY.index, Day.parse("SATURDAY").index);
+		assertEquals(Day.SATURDAY.index, Day.parse("sat").index);
 
-		assertEquals(Day.SUNDAY.index, stringToWeekdayCode("Sunday"));
-		assertEquals(Day.SUNDAY.index, stringToWeekdayCode("Sun"));
-		assertEquals(Day.SUNDAY.index, stringToWeekdayCode("sunday"));
-		assertEquals(Day.SUNDAY.index, stringToWeekdayCode("SUNDAY"));
-		assertEquals(Day.SUNDAY.index, stringToWeekdayCode("sun"));
+		assertEquals(Day.SUNDAY.index, Day.parse("Sunday").index);
+		assertEquals(Day.SUNDAY.index, Day.parse("Sun").index);
+		assertEquals(Day.SUNDAY.index, Day.parse("sunday").index);
+		assertEquals(Day.SUNDAY.index, Day.parse("SUNDAY").index);
+		assertEquals(Day.SUNDAY.index, Day.parse("sun").index);
 	}
 
 	public void testWeekdayCodeToString() throws Exception {
-		assertEquals("Sunday", weekdayCodeToString(Day.SUNDAY.index));
-		assertEquals("Monday", weekdayCodeToString(Day.MONDAY.index));
-		assertEquals("Tuesday", weekdayCodeToString(Day.TUESDAY.index));
-		assertEquals("Wednesday", weekdayCodeToString(Day.WEDNESDAY.index));
-		assertEquals("Thursday", weekdayCodeToString(Day.THURSDAY.index));
-		assertEquals("Friday", weekdayCodeToString(Day.FRIDAY.index));
-		assertEquals("Saturday", weekdayCodeToString(Day.SATURDAY.index));
+		assertEquals("Sunday", Day.SUNDAY.toString());
+		assertEquals("Monday", Day.MONDAY.toString());
+		assertEquals("Tuesday", Day.TUESDAY.toString());
+		assertEquals("Wednesday", Day.WEDNESDAY.toString());
+		assertEquals("Thursday", Day.THURSDAY.toString());
+		assertEquals("Friday", Day.FRIDAY.toString());
+		assertEquals("Saturday", Day.SATURDAY.toString());
 	}
 
 	public void testMonthCodeToString() throws Exception {
