@@ -63,37 +63,7 @@ import java.text.*;
 public abstract class DayDate implements Comparable,
 		Serializable {
 
-	public static enum Month {
-		JANUARY(1),
-		FEBRUARY(2),
-		MARCH(3),
-		APRIL(4),
-		MAY(5),
-		JUNE(6),
-		JULY(7),
-		AUGUST(8),
-		SEPTEMBER(9),
-		OCTOBER(10),
-		NOVEMBER(11),
-		DECEMBER(12);
-
-		Month(int index) {
-			this.index = index;
-		}
-
-		public static Month make(int monthIndex) {
-			for (Month m : Month.values()) {
-				if (m.index == monthIndex)
-					return m;
-			}
-			throw new IllegalArgumentException("Invalid month index " + monthIndex);
-		}
-
-		public int index;
-	}
-
 	public static DateFormatSymbols dateFormatSymbols = new SimpleDateFormat().getDateFormatSymbols();
-
 	private static int[] LAST_DAY_OF_MONTH = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	public enum WeekInMonth {
