@@ -152,9 +152,6 @@ public abstract class DayDate implements Comparable,
 		}
 	}
 
-	/** A description for the date. */
-	private String description;
-
 	/**
 	 * Default constructor.
 	 */
@@ -614,24 +611,6 @@ public abstract class DayDate implements Comparable,
 	 * @return this as <code>java.util.Date</code>.
 	 */
 	public abstract java.util.Date toDate();
-
-	/**
-	 * Returns a description of the date.
-	 *
-	 * @return a description of the date.
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
-	/**
-	 * Sets the description for the date.
-	 *
-	 * @param description the new description for the date.
-	 */
-	public void setDescription(final String description) {
-		this.description = description;
-	}
 
 	/**
 	 * Converts the date to a string.
