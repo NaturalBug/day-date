@@ -153,12 +153,6 @@ public abstract class DayDate implements Comparable,
 	}
 
 	/**
-	 * Default constructor.
-	 */
-	protected DayDate() {
-	}
-
-	/**
 	 * Converts the supplied string to a day of the week.
 	 *
 	 * @param s a string representing the day of the week.
