@@ -212,19 +212,19 @@ public class BobsSerialDateTest extends TestCase {
 	}
 
 	public void testLastDayOfMonth() throws Exception {
-		assertEquals(31, lastDayOfMonth(Month.JANUARY.index, 1901));
-		assertEquals(28, lastDayOfMonth(Month.FEBRUARY.index, 1901));
-		assertEquals(31, lastDayOfMonth(Month.MARCH.index, 1901));
-		assertEquals(30, lastDayOfMonth(Month.APRIL.index, 1901));
-		assertEquals(31, lastDayOfMonth(Month.MAY.index, 1901));
-		assertEquals(30, lastDayOfMonth(Month.JUNE.index, 1901));
-		assertEquals(31, lastDayOfMonth(Month.JULY.index, 1901));
-		assertEquals(31, lastDayOfMonth(Month.AUGUST.index, 1901));
-		assertEquals(30, lastDayOfMonth(Month.SEPTEMBER.index, 1901));
-		assertEquals(31, lastDayOfMonth(Month.OCTOBER.index, 1901));
-		assertEquals(30, lastDayOfMonth(Month.NOVEMBER.index, 1901));
-		assertEquals(31, lastDayOfMonth(Month.DECEMBER.index, 1901));
-		assertEquals(29, lastDayOfMonth(Month.FEBRUARY.index, 1904));
+		assertEquals(31, lastDayOfMonth(Month.JANUARY, 1901));
+		assertEquals(28, lastDayOfMonth(Month.FEBRUARY, 1901));
+		assertEquals(31, lastDayOfMonth(Month.MARCH, 1901));
+		assertEquals(30, lastDayOfMonth(Month.APRIL, 1901));
+		assertEquals(31, lastDayOfMonth(Month.MAY, 1901));
+		assertEquals(30, lastDayOfMonth(Month.JUNE, 1901));
+		assertEquals(31, lastDayOfMonth(Month.JULY, 1901));
+		assertEquals(31, lastDayOfMonth(Month.AUGUST, 1901));
+		assertEquals(30, lastDayOfMonth(Month.SEPTEMBER, 1901));
+		assertEquals(31, lastDayOfMonth(Month.OCTOBER, 1901));
+		assertEquals(30, lastDayOfMonth(Month.NOVEMBER, 1901));
+		assertEquals(31, lastDayOfMonth(Month.DECEMBER, 1901));
+		assertEquals(29, lastDayOfMonth(Month.FEBRUARY, 1904));
 	}
 
 	public void testAddDays() throws Exception {

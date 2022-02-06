@@ -9,6 +9,7 @@ public enum Month {
     OCTOBER(10), NOVEMBER(11), DECEMBER(12);
 
     private static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols();
+    private static final int[] LAST_DAY_OF_MONTH = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     public int index;
 
@@ -22,6 +23,10 @@ public enum Month {
                 return m;
         }
         throw new IllegalArgumentException("Invalid month index " + monthIndex);
+    }
+
+    public int lastDay() {
+        return LAST_DAY_OF_MONTH[index];
     }
 
     public int quarter() {

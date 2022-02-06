@@ -144,7 +144,7 @@ public class SpreadsheetDate extends DayDate {
 					"The 'month' argument must be in the range 1 to 12.");
 		}
 
-		if ((day >= 1) && (day <= DayDate.lastDayOfMonth(month, year))) {
+		if ((day >= 1) && (day <= DayDate.lastDayOfMonth(Month.fromInt(month), year))) {
 			this.day = day;
 		} else {
 			throw new IllegalArgumentException("Invalid 'day' argument.");

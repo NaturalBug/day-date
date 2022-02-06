@@ -64,7 +64,6 @@ public abstract class DayDate implements Comparable,
 		Serializable {
 
 	public static DateFormatSymbols dateFormatSymbols = new SimpleDateFormat().getDateFormatSymbols();
-	private static int[] LAST_DAY_OF_MONTH = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	public enum WeekInMonth {
 		FIRST(1), SECOND(2), THIRD(3), FOURTH(4), LAST(0);
@@ -145,21 +144,15 @@ public abstract class DayDate implements Comparable,
 	 * leap years.
 	 *
 	 * @param month the month.
-	 * @param yyyy  the year (in the range 1900 to 9999).
+	 * @param year  the year (in the range 1900 to 9999).
 	 *
 	 * @return the number of the last day of the month.
 	 */
-	public static int lastDayOfMonth(int month, int yyyy) {
-
-		int result = LAST_DAY_OF_MONTH[month];
-		if (month != Month.FEBRUARY.index) {
-			return result;
-		} else if (isLeapYear(yyyy)) {
-			return result + 1;
-		} else {
-			return result;
-		}
-
+	public static int lastDayOfMonth(Month month, int year) {
+		if (month == Month.FEBRUARY && isLeapYear(year))
+			return month.lastDay() + 1;
+		else
+			return month.lastDay();
 	}
 
 	/**
@@ -198,7 +191,7 @@ public abstract class DayDate implements Comparable,
 		int mm = (12 * base.getYYYY() + base.getMonth() + months - 1)
 				% 12 + 1;
 		int dd = Math.min(
-				base.getDayOfMonth(), DayDate.lastDayOfMonth(mm, yy));
+				base.getDayOfMonth(), DayDate.lastDayOfMonth(Month.fromInt(mm), yy));
 		return DayDateFactory.makeDate(dd, mm, yy);
 
 	}
@@ -220,7 +213,7 @@ public abstract class DayDate implements Comparable,
 
 		int targetY = baseY + years;
 		int targetD = Math.min(
-				baseD, DayDate.lastDayOfMonth(baseM, targetY));
+				baseD, DayDate.lastDayOfMonth(Month.fromInt(baseM), targetY));
 
 		return DayDateFactory.makeDate(targetD, baseM, targetY);
 
@@ -319,7 +312,7 @@ public abstract class DayDate implements Comparable,
 	 */
 	public DayDate getEndOfCurrentMonth(DayDate base) {
 		int last = DayDate.lastDayOfMonth(
-				base.getMonth(), base.getYYYY());
+				Month.fromInt(base.getMonth()), base.getYYYY());
 		return DayDateFactory.makeDate(last, base.getMonth(), base.getYYYY());
 	}
 
