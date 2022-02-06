@@ -144,7 +144,7 @@ public class SpreadsheetDate extends DayDate {
 					"The 'month' argument must be in the range 1 to 12.");
 		}
 
-		if ((day >= 1) && (day <= DayDate.lastDayOfMonth(Month.fromInt(month), year))) {
+		if ((day >= 1) && (day <= lastDayOfMonth(Month.fromInt(month), year))) {
 			this.day = day;
 		} else {
 			throw new IllegalArgumentException("Invalid 'day' argument.");
@@ -220,7 +220,7 @@ public class SpreadsheetDate extends DayDate {
 	 */
 	public Date toDate() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(getYYYY(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);
+		calendar.set(getYear(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);
 		return calendar.getTime();
 	}
 
@@ -229,7 +229,7 @@ public class SpreadsheetDate extends DayDate {
 	 *
 	 * @return The year.
 	 */
-	public int getYYYY() {
+	public int getYear() {
 		return this.year;
 	}
 

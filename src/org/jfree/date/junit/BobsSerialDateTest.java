@@ -240,25 +240,25 @@ public class BobsSerialDateTest extends TestCase {
 	}
 
 	public void testAddMonths() throws Exception {
-		assertEquals(d(1, Month.FEBRUARY.index, 1900), addMonths(1, d(1, Month.JANUARY.index, 1900)));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), addMonths(1, d(31, Month.JANUARY.index, 1900)));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), addMonths(1, d(30, Month.JANUARY.index, 1900)));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), addMonths(1, d(29, Month.JANUARY.index, 1900)));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), addMonths(1, d(28, Month.JANUARY.index, 1900)));
-		assertEquals(d(27, Month.FEBRUARY.index, 1900), addMonths(1, d(27, Month.JANUARY.index, 1900)));
+		assertEquals(d(1, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(1, Month.JANUARY, 1900).addMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(30, Month.JANUARY, 1900).addMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(29, Month.JANUARY, 1900).addMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(28, Month.JANUARY, 1900).addMonths(1));
+		assertEquals(d(27, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(27, Month.JANUARY, 1900).addMonths(1));
 
-		assertEquals(d(30, Month.JUNE.index, 1900), addMonths(5, d(31, Month.JANUARY.index, 1900)));
-		assertEquals(d(30, Month.JUNE.index, 1901), addMonths(17, d(31, Month.JANUARY.index, 1900)));
+		assertEquals(d(30, Month.JUNE.index, 1900), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(5));
+		assertEquals(d(30, Month.JUNE.index, 1901), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(17));
 
-		assertEquals(d(29, Month.FEBRUARY.index, 1904), addMonths(49, d(31, Month.JANUARY.index, 1900)));
+		assertEquals(d(29, Month.FEBRUARY.index, 1904), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(49));
 
 	}
 
 	public void testAddYears() throws Exception {
-		assertEquals(d(1, Month.JANUARY.index, 1901), addYears(1, d(1, Month.JANUARY.index, 1900)));
-		assertEquals(d(28, Month.FEBRUARY.index, 1905), addYears(1, d(29, Month.FEBRUARY.index, 1904)));
-		assertEquals(d(28, Month.FEBRUARY.index, 1905), addYears(1, d(28, Month.FEBRUARY.index, 1904)));
-		assertEquals(d(28, Month.FEBRUARY.index, 1904), addYears(1, d(28, Month.FEBRUARY.index, 1903)));
+		assertEquals(d(1, Month.JANUARY.index, 1901), DayDateFactory.makeDate(1, Month.JANUARY, 1900).plusYears(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1905), DayDateFactory.makeDate(29, Month.FEBRUARY, 1904).plusYears(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1905), DayDateFactory.makeDate(28, Month.FEBRUARY, 1904).plusYears(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1904), DayDateFactory.makeDate(28, Month.FEBRUARY, 1903).plusYears(1));
 	}
 
 	public void testGetPreviousDayOfWeek() throws Exception {
@@ -453,7 +453,7 @@ public class BobsSerialDateTest extends TestCase {
 		DayDate date = DayDateFactory.makeDate(1, Month.JANUARY.index, 1900);
 		assertEquals(1, date.getDayOfMonth());
 		assertEquals(Month.JANUARY.index, date.getMonth());
-		assertEquals(1900, date.getYYYY());
+		assertEquals(1900, date.getYear());
 		assertEquals(2, date.toOrdinal());
 	}
 

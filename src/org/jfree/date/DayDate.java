@@ -175,21 +175,17 @@ public abstract class DayDate implements Comparable,
 	 * may be adjusted slightly: 31 May + 1 month = 30 June.
 	 *
 	 * @param months the number of months to add (can be negative).
-	 * @param base   the base date.
 	 *
 	 * @return a new date.
 	 */
-	public static DayDate addMonths(int months,
-			DayDate base) {
-
-		int yy = (12 * base.getYYYY() + base.getMonth() + months - 1)
-				/ 12;
-		int mm = (12 * base.getYYYY() + base.getMonth() + months - 1)
-				% 12 + 1;
-		int dd = Math.min(
-				base.getDayOfMonth(), DayDate.lastDayOfMonth(Month.fromInt(mm), yy));
-		return DayDateFactory.makeDate(dd, mm, yy);
-
+	public DayDate addMonths(int months) {
+		int thisMonthAsOrdinal = 12 * getYear() + getMonth() - 1;
+		int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
+		int resultYear = resultMonthAsOrdinal / 12;
+		Month resultMonth = Month.fromInt(resultMonthAsOrdinal % 12 + 1);
+		int lastDayOfResultMonth = lastDayOfMonth(resultMonth, resultYear);
+		int resultDay = Math.min(getDayOfMonth(), lastDayOfResultMonth);
+		return DayDateFactory.makeDate(resultDay, resultMonth, resultYear);
 	}
 
 	/**
@@ -197,22 +193,14 @@ public abstract class DayDate implements Comparable,
 	 * date.
 	 *
 	 * @param years the number of years to add (can be negative).
-	 * @param base  the base date.
 	 *
 	 * @return A new date.
 	 */
-	public static DayDate addYears(int years, DayDate base) {
-
-		int baseY = base.getYYYY();
-		int baseM = base.getMonth();
-		int baseD = base.getDayOfMonth();
-
-		int targetY = baseY + years;
-		int targetD = Math.min(
-				baseD, DayDate.lastDayOfMonth(Month.fromInt(baseM), targetY));
-
-		return DayDateFactory.makeDate(targetD, baseM, targetY);
-
+	public DayDate plusYears(int years) {
+		int resultYear = getYear() + years;
+		int lastDayOfMonthInResultYear = lastDayOfMonth(Month.fromInt(getMonth()), resultYear);
+		int resultDay = Math.min(getDayOfMonth(), lastDayOfMonthInResultYear);
+		return DayDateFactory.makeDate(resultDay, getMonth(), resultYear);
 	}
 
 	/**
@@ -306,9 +294,8 @@ public abstract class DayDate implements Comparable,
 	 * @return a new serial date.
 	 */
 	public DayDate getEndOfCurrentMonth(DayDate base) {
-		int last = DayDate.lastDayOfMonth(
-				Month.fromInt(base.getMonth()), base.getYYYY());
-		return DayDateFactory.makeDate(last, base.getMonth(), base.getYYYY());
+		int last = lastDayOfMonth(Month.fromInt(base.getMonth()), base.getYear());
+		return DayDateFactory.makeDate(last, base.getMonth(), base.getYear());
 	}
 
 	/**
@@ -385,7 +372,7 @@ public abstract class DayDate implements Comparable,
 	 */
 	public String toString() {
 		return getDayOfMonth() + "-" + Month.fromInt(getMonth())
-				+ "-" + getYYYY();
+				+ "-" + getYear();
 	}
 
 	/**
@@ -393,7 +380,7 @@ public abstract class DayDate implements Comparable,
 	 *
 	 * @return the year.
 	 */
-	public abstract int getYYYY();
+	public abstract int getYear();
 
 	/**
 	 * Returns the month (January = 1, February = 2, March = 3).
