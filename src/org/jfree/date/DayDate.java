@@ -160,15 +160,11 @@ public abstract class DayDate implements Comparable,
 	 * date.
 	 *
 	 * @param days the number of days to add (can be negative).
-	 * @param base the base date.
 	 *
 	 * @return a new date.
 	 */
-	public static DayDate addDays(int days, DayDate base) {
-
-		int serialDayNumber = base.toSerial() + days;
-		return DayDateFactory.makeDate(serialDayNumber);
-
+	public DayDate addDays(int days) {
+		return DayDateFactory.makeDate(toOrdinal() + days);
 	}
 
 	/**
@@ -244,8 +240,7 @@ public abstract class DayDate implements Comparable,
 			adjust = -7 + Math.max(0, targetWeekday - baseDOW);
 		}
 
-		return DayDate.addDays(adjust, base);
-
+		return base.addDays(adjust);
 	}
 
 	/**
@@ -273,7 +268,7 @@ public abstract class DayDate implements Comparable,
 			adjust = Math.max(0, targetWeekday - baseDOW);
 		}
 
-		return DayDate.addDays(adjust, base);
+		return base.addDays(adjust);
 	}
 
 	/**
@@ -299,7 +294,7 @@ public abstract class DayDate implements Comparable,
 		if (adjust > 3)
 			adjust -= 7;
 
-		return DayDate.addDays(adjust, base);
+		return base.addDays(adjust);
 
 	}
 
@@ -373,7 +368,7 @@ public abstract class DayDate implements Comparable,
 	 *
 	 * @return the serial number for the date.
 	 */
-	public abstract int toSerial();
+	public abstract int toOrdinal();
 
 	/**
 	 * Returns a java.util.Date. Since java.util.Date has more precision than

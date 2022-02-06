@@ -209,7 +209,7 @@ public class SpreadsheetDate extends DayDate {
 	 *
 	 * @return The serial number of this date.
 	 */
-	public int toSerial() {
+	public int toOrdinal() {
 		return this.serial;
 	}
 
@@ -280,7 +280,7 @@ public class SpreadsheetDate extends DayDate {
 
 		if (object instanceof DayDate) {
 			DayDate s = (DayDate) object;
-			return (s.toSerial() == this.toSerial());
+			return (s.toOrdinal() == this.toOrdinal());
 		} else {
 			return false;
 		}
@@ -293,7 +293,7 @@ public class SpreadsheetDate extends DayDate {
 	 * @return A hash code.
 	 */
 	public int hashCode() {
-		return toSerial();
+		return toOrdinal();
 	}
 
 	/**
@@ -306,7 +306,7 @@ public class SpreadsheetDate extends DayDate {
 	 *         'other' date.
 	 */
 	public int compare(DayDate other) {
-		return this.serial - other.toSerial();
+		return this.serial - other.toOrdinal();
 	}
 
 	/**
@@ -331,7 +331,7 @@ public class SpreadsheetDate extends DayDate {
 	 *         the specified SerialDate.
 	 */
 	public boolean isOn(DayDate other) {
-		return (this.serial == other.toSerial());
+		return (this.serial == other.toOrdinal());
 	}
 
 	/**
@@ -344,7 +344,7 @@ public class SpreadsheetDate extends DayDate {
 	 *         compared to the specified SerialDate.
 	 */
 	public boolean isBefore(DayDate other) {
-		return (this.serial < other.toSerial());
+		return (this.serial < other.toOrdinal());
 	}
 
 	/**
@@ -357,7 +357,7 @@ public class SpreadsheetDate extends DayDate {
 	 *         as the specified SerialDate.
 	 */
 	public boolean isOnOrBefore(DayDate other) {
-		return (this.serial <= other.toSerial());
+		return (this.serial <= other.toOrdinal());
 	}
 
 	/**
@@ -370,7 +370,7 @@ public class SpreadsheetDate extends DayDate {
 	 *         as the specified SerialDate.
 	 */
 	public boolean isAfter(DayDate other) {
-		return (this.serial > other.toSerial());
+		return (this.serial > other.toOrdinal());
 	}
 
 	/**
@@ -383,7 +383,7 @@ public class SpreadsheetDate extends DayDate {
 	 *         the specified SerialDate.
 	 */
 	public boolean isOnOrAfter(DayDate other) {
-		return (this.serial >= other.toSerial());
+		return (this.serial >= other.toOrdinal());
 	}
 
 	/**
@@ -415,12 +415,12 @@ public class SpreadsheetDate extends DayDate {
 	 */
 	public boolean isInRange(DayDate d1, DayDate d2,
 			int include) {
-		int s1 = d1.toSerial();
-		int s2 = d2.toSerial();
+		int s1 = d1.toOrdinal();
+		int s2 = d2.toOrdinal();
 		int start = Math.min(s1, s2);
 		int end = Math.max(s1, s2);
 
-		int s = toSerial();
+		int s = toOrdinal();
 		if (include == DateInterval.OPEN.index) {
 			return (s >= start && s <= end);
 		} else if (include == DateInterval.CLOSED_LEFT.index) {
