@@ -187,11 +187,11 @@ public class RelativeDayOfWeekRule extends AnnualDateRule {
 
         if (base != null) {
             if (this.relative == WeekdayRange.LAST.index) {
-                result = DayDate.getPreviousDayOfWeek(this.dayOfWeek, base);
+                result = base.getPreviousDayOfWeek(Day.make(this.dayOfWeek));
             } else if (this.relative == WeekdayRange.NEAREST.index) {
-                result = DayDate.getNearestDayOfWeek(this.dayOfWeek, base);
+                result = base.getNearestDayOfWeek(this.dayOfWeek);
             } else if (this.relative == WeekdayRange.NEXT.index) {
-                result = DayDate.getFollowingDayOfWeek(this.dayOfWeek, base);
+                result = base.getFollowingDayOfWeek(Day.make(this.dayOfWeek));
             }
         }
         return result;

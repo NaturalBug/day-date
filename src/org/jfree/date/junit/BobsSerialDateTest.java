@@ -264,34 +264,22 @@ public class BobsSerialDateTest extends TestCase {
 
 	public void testGetPreviousDayOfWeek() throws Exception {
 		assertEquals(d(24, Month.FEBRUARY.index, 2006),
-				getPreviousDayOfWeek(Day.FRIDAY.index, d(1, Month.MARCH.index, 2006)));
+				DayDateFactory.makeDate(1, Month.MARCH, 2006).getPreviousDayOfWeek(Day.FRIDAY));
 		assertEquals(d(22, Month.FEBRUARY.index, 2006),
-				getPreviousDayOfWeek(Day.WEDNESDAY.index, d(1, Month.MARCH.index, 2006)));
+				DayDateFactory.makeDate(1, Month.MARCH, 2006).getPreviousDayOfWeek(Day.WEDNESDAY));
 		assertEquals(d(29, Month.FEBRUARY.index, 2004),
-				getPreviousDayOfWeek(Day.SUNDAY.index, d(3, Month.MARCH.index, 2004)));
+				DayDateFactory.makeDate(3, Month.MARCH, 2004).getPreviousDayOfWeek(Day.SUNDAY));
 		assertEquals(d(29, Month.DECEMBER.index, 2004),
-				getPreviousDayOfWeek(Day.WEDNESDAY.index, d(5, Month.JANUARY.index, 2005)));
-
-		try {
-			getPreviousDayOfWeek(-1, d(1, Month.JANUARY.index, 2006));
-			fail("Invalid day of week code should throw exception");
-		} catch (IllegalArgumentException e) {
-		}
+				DayDateFactory.makeDate(5, Month.JANUARY, 2005).getPreviousDayOfWeek(Day.WEDNESDAY));
 	}
 
 	public void testGetFollowingDayOfWeek() throws Exception {
 		assertEquals(d(1, Month.JANUARY.index, 2005),
-				getFollowingDayOfWeek(Day.SATURDAY.index, d(25, Month.DECEMBER.index, 2004)));
+				DayDateFactory.makeDate(25, Month.DECEMBER, 2004).getFollowingDayOfWeek(Day.SATURDAY));
 		assertEquals(d(1, Month.JANUARY.index, 2005),
-				getFollowingDayOfWeek(Day.SATURDAY.index, d(26, Month.DECEMBER.index, 2004)));
+				DayDateFactory.makeDate(26, Month.DECEMBER, 2004).getFollowingDayOfWeek(Day.SATURDAY));
 		assertEquals(d(3, Month.MARCH.index, 2004),
-				getFollowingDayOfWeek(Day.WEDNESDAY.index, d(28, Month.FEBRUARY.index, 2004)));
-
-		try {
-			getFollowingDayOfWeek(-1, d(1, Month.JANUARY.index, 2006));
-			fail("Invalid day of week code should throw exception");
-		} catch (IllegalArgumentException e) {
-		}
+				DayDateFactory.makeDate(28, Month.FEBRUARY, 2004).getFollowingDayOfWeek(Day.WEDNESDAY));
 	}
 
 	public void testGetNearestDayOfWeek() throws Exception {

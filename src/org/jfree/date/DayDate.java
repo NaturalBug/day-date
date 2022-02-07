@@ -207,56 +207,32 @@ public abstract class DayDate implements Comparable,
 	 * Returns the latest date that falls on the specified day-of-the-week and
 	 * is BEFORE the base date.
 	 *
-	 * @param targetWeekday a code for the target day-of-the-week.
-	 * @param base          the base date.
+	 * @param targetDayOfWeek a code for the target day-of-the-week.
 	 *
 	 * @return the latest date that falls on the specified day-of-the-week and
 	 *         is BEFORE the base date.
 	 */
-	public static DayDate getPreviousDayOfWeek(int targetWeekday,
-			DayDate base) {
-
-		// check arguments...
-		Day.make(targetWeekday);
-
-		// find the date...
-		int adjust;
-		int baseDOW = base.getDayOfWeek();
-		if (baseDOW > targetWeekday) {
-			adjust = Math.min(0, targetWeekday - baseDOW);
-		} else {
-			adjust = -7 + Math.max(0, targetWeekday - baseDOW);
-		}
-
-		return base.plusDays(adjust);
+	public DayDate getPreviousDayOfWeek(Day targetDayOfWeek) {
+		int offsetToTarget = targetDayOfWeek.index - getDayOfWeek();
+		if (offsetToTarget >= 0)
+			offsetToTarget -= 7;
+		return plusDays(offsetToTarget);
 	}
 
 	/**
 	 * Returns the earliest date that falls on the specified day-of-the-week
 	 * and is AFTER the base date.
 	 *
-	 * @param targetWeekday a code for the target day-of-the-week.
-	 * @param base          the base date.
+	 * @param targetDayOfWeek a code for the target day-of-the-week.
 	 *
 	 * @return the earliest date that falls on the specified day-of-the-week
 	 *         and is AFTER the base date.
 	 */
-	public static DayDate getFollowingDayOfWeek(int targetWeekday,
-			DayDate base) {
-
-		// check arguments...
-		Day.make(targetWeekday);
-
-		// find the date...
-		int adjust;
-		int baseDOW = base.getDayOfWeek();
-		if (baseDOW >= targetWeekday) {
-			adjust = 7 + Math.min(0, targetWeekday - baseDOW);
-		} else {
-			adjust = Math.max(0, targetWeekday - baseDOW);
-		}
-
-		return base.plusDays(adjust);
+	public DayDate getFollowingDayOfWeek(Day targetDayOfWeek) {
+		int offsetToTarget = targetDayOfWeek.index - getDayOfWeek();
+		if (offsetToTarget <= 0)
+			offsetToTarget += 7;
+		return plusDays(offsetToTarget);
 	}
 
 	/**
@@ -497,32 +473,6 @@ public abstract class DayDate implements Comparable,
 	 */
 	public abstract boolean isInRange(DayDate d1, DayDate d2,
 			int include);
-
-	/**
-	 * Returns the latest date that falls on the specified day-of-the-week and
-	 * is BEFORE this date.
-	 *
-	 * @param targetDOW a code for the target day-of-the-week.
-	 *
-	 * @return the latest date that falls on the specified day-of-the-week and
-	 *         is BEFORE this date.
-	 */
-	public DayDate getPreviousDayOfWeek(int targetDOW) {
-		return getPreviousDayOfWeek(targetDOW, this);
-	}
-
-	/**
-	 * Returns the earliest date that falls on the specified day-of-the-week
-	 * and is AFTER this date.
-	 *
-	 * @param targetDOW a code for the target day-of-the-week.
-	 *
-	 * @return the earliest date that falls on the specified day-of-the-week
-	 *         and is AFTER this date.
-	 */
-	public DayDate getFollowingDayOfWeek(int targetDOW) {
-		return getFollowingDayOfWeek(targetDOW, this);
-	}
 
 	/**
 	 * Returns the nearest date that falls on the specified day-of-the-week.
