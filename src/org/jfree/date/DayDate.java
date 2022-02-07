@@ -65,6 +65,8 @@ import java.util.Calendar;
 public abstract class DayDate implements Comparable,
 		Serializable {
 
+	protected abstract Day getDayOfWeekForOrdinalZero();
+
 	public static DateFormatSymbols dateFormatSymbols = new SimpleDateFormat().getDateFormatSymbols();
 
 	public enum WeekInMonth {
@@ -215,7 +217,7 @@ public abstract class DayDate implements Comparable,
 	 *         is BEFORE the base date.
 	 */
 	public DayDate getPreviousDayOfWeek(Day targetDayOfWeek) {
-		int offsetToTarget = targetDayOfWeek.index - getDayOfWeek();
+		int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
 		if (offsetToTarget >= 0)
 			offsetToTarget -= 7;
 		return plusDays(offsetToTarget);
@@ -231,7 +233,7 @@ public abstract class DayDate implements Comparable,
 	 *         and is AFTER the base date.
 	 */
 	public DayDate getFollowingDayOfWeek(Day targetDayOfWeek) {
-		int offsetToTarget = targetDayOfWeek.index - getDayOfWeek();
+		int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
 		if (offsetToTarget <= 0)
 			offsetToTarget += 7;
 		return plusDays(offsetToTarget);
@@ -247,7 +249,7 @@ public abstract class DayDate implements Comparable,
 	 *         CLOSEST to the base date.
 	 */
 	public DayDate getNearestDayOfWeek(final Day targetDay) {
-		int offsetToThisWeeksTarget = targetDay.index - getDayOfWeek();
+		int offsetToThisWeeksTarget = targetDay.index - getDayOfWeek().index;
 		int offsetToFutureTarget = (offsetToThisWeeksTarget + 7) % 7;
 		int offsetToPreviousTarget = offsetToFutureTarget - 7;
 
@@ -320,12 +322,11 @@ public abstract class DayDate implements Comparable,
 	 */
 	public abstract int getDayOfMonth();
 
-	/**
-	 * Returns the day of the week.
-	 *
-	 * @return the day of the week.
-	 */
-	public abstract int getDayOfWeek();
+	public Day getDayOfWeek() {
+		Day startingDay = getDayOfWeekForOrdinalZero();
+		int startingOffset = startingDay.index - Day.SUNDAY.index;
+		return Day.make((getOrdinalDay() + startingOffset) % 7 + 1);
+	}
 
 	/**
 	 * Returns the difference (in days) between this date and the specified

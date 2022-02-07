@@ -238,20 +238,6 @@ public class SpreadsheetDate extends DayDate {
 	}
 
 	/**
-	 * Returns a code representing the day of the week.
-	 * <P>
-	 * The codes are defined in the {@link DayDate} class as:
-	 * <code>SUNDAY</code>, <code>MONDAY</code>, <code>TUESDAY</code>,
-	 * <code>WEDNESDAY</code>, <code>THURSDAY</code>, <code>FRIDAY</code>, and
-	 * <code>SATURDAY</code>.
-	 *
-	 * @return A code representing the day of the week.
-	 */
-	public int getDayOfWeek() {
-		return (this.serial + 6) % 7 + 1;
-	}
-
-	/**
 	 * Tests the equality of this date with an arbitrary object.
 	 * <P>
 	 * This method will return true ONLY if the object is an instance of the
@@ -487,6 +473,11 @@ public class SpreadsheetDate extends DayDate {
 		this.day = this.serial - ss2
 				- daysToEndOfPrecedingMonth[this.month] + 1;
 
+	}
+
+	@Override
+	protected Day getDayOfWeekForOrdinalZero() {
+		return Day.SATURDAY;
 	}
 
 }
