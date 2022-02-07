@@ -54,9 +54,6 @@
 
 package org.jfree.date;
 
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  * Represents a date using an integer, in a similar fashion to the
  * implementation in Microsoft Excel. The range of dates supported is
@@ -211,17 +208,6 @@ public class SpreadsheetDate extends DayDate {
 	 */
 	public int getOrdinalDay() {
 		return this.serial;
-	}
-
-	/**
-	 * Returns a <code>java.util.Date</code> equivalent to this date.
-	 *
-	 * @return The date.
-	 */
-	public Date toDate() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(getYear(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);
-		return calendar.getTime();
 	}
 
 	/**
