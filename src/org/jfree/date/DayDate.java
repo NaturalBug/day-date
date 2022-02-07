@@ -239,27 +239,20 @@ public abstract class DayDate implements Comparable,
 	 * Returns the date that falls on the specified day-of-the-week and is
 	 * CLOSEST to the base date.
 	 *
-	 * @param targetDOW a code for the target day-of-the-week.
-	 * @param base      the base date.
+	 * @param targetDay a code for the target day-of-the-week.
 	 *
 	 * @return the date that falls on the specified day-of-the-week and is
 	 *         CLOSEST to the base date.
 	 */
-	public static DayDate getNearestDayOfWeek(int targetDOW,
-			DayDate base) {
+	public DayDate getNearestDayOfWeek(final Day targetDay) {
+		int offsetToThisWeeksTarget = targetDay.index - getDayOfWeek();
+		int offsetToFutureTarget = (offsetToThisWeeksTarget + 7) % 7;
+		int offsetToPreviousTarget = offsetToFutureTarget - 7;
 
-		// check arguments...
-		Day.make(targetDOW);
-
-		// find the date...
-		int delta = targetDOW - base.getDayOfWeek();
-		int positiveDelta = delta + 7;
-		int adjust = positiveDelta % 7;
-		if (adjust > 3)
-			adjust -= 7;
-
-		return base.plusDays(adjust);
-
+		if (offsetToFutureTarget > 3)
+			return plusDays(offsetToPreviousTarget);
+		else
+			return plusDays(offsetToFutureTarget);
 	}
 
 	/**
@@ -473,16 +466,4 @@ public abstract class DayDate implements Comparable,
 	 */
 	public abstract boolean isInRange(DayDate d1, DayDate d2,
 			int include);
-
-	/**
-	 * Returns the nearest date that falls on the specified day-of-the-week.
-	 *
-	 * @param targetDOW a code for the target day-of-the-week.
-	 *
-	 * @return the nearest date that falls on the specified day-of-the-week.
-	 */
-	public DayDate getNearestDayOfWeek(int targetDOW) {
-		return getNearestDayOfWeek(targetDOW, this);
-	}
-
 }
