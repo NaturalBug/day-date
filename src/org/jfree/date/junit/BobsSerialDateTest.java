@@ -229,10 +229,10 @@ public class BobsSerialDateTest extends TestCase {
 
 	public void testAddDays() throws Exception {
 		DayDate newYears = d(1, Month.JANUARY.index, 1900);
-		assertEquals(d(2, Month.JANUARY.index, 1900), newYears.addDays(1));
-		assertEquals(d(1, Month.FEBRUARY.index, 1900), newYears.addDays(31));
-		assertEquals(d(1, Month.JANUARY.index, 1901), newYears.addDays(365));
-		assertEquals(d(31, Month.DECEMBER.index, 1904), newYears.addDays(5 * 365));
+		assertEquals(d(2, Month.JANUARY.index, 1900), newYears.plusDays(1));
+		assertEquals(d(1, Month.FEBRUARY.index, 1900), newYears.plusDays(31));
+		assertEquals(d(1, Month.JANUARY.index, 1901), newYears.plusDays(365));
+		assertEquals(d(31, Month.DECEMBER.index, 1904), newYears.plusDays(5 * 365));
 	}
 
 	private static SpreadsheetDate d(int day, int month, int year) {
@@ -240,17 +240,18 @@ public class BobsSerialDateTest extends TestCase {
 	}
 
 	public void testAddMonths() throws Exception {
-		assertEquals(d(1, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(1, Month.JANUARY, 1900).addMonths(1));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(1));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(30, Month.JANUARY, 1900).addMonths(1));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(29, Month.JANUARY, 1900).addMonths(1));
-		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(28, Month.JANUARY, 1900).addMonths(1));
-		assertEquals(d(27, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(27, Month.JANUARY, 1900).addMonths(1));
+		assertEquals(d(1, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(1, Month.JANUARY, 1900).plusMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(31, Month.JANUARY, 1900).plusMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(30, Month.JANUARY, 1900).plusMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(29, Month.JANUARY, 1900).plusMonths(1));
+		assertEquals(d(28, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(28, Month.JANUARY, 1900).plusMonths(1));
+		assertEquals(d(27, Month.FEBRUARY.index, 1900), DayDateFactory.makeDate(27, Month.JANUARY, 1900).plusMonths(1));
 
-		assertEquals(d(30, Month.JUNE.index, 1900), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(5));
-		assertEquals(d(30, Month.JUNE.index, 1901), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(17));
+		assertEquals(d(30, Month.JUNE.index, 1900), DayDateFactory.makeDate(31, Month.JANUARY, 1900).plusMonths(5));
+		assertEquals(d(30, Month.JUNE.index, 1901), DayDateFactory.makeDate(31, Month.JANUARY, 1900).plusMonths(17));
 
-		assertEquals(d(29, Month.FEBRUARY.index, 1904), DayDateFactory.makeDate(31, Month.JANUARY, 1900).addMonths(49));
+		assertEquals(d(29, Month.FEBRUARY.index, 1904),
+				DayDateFactory.makeDate(31, Month.JANUARY, 1900).plusMonths(49));
 
 	}
 

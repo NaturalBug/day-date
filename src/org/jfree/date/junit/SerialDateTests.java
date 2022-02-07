@@ -100,7 +100,7 @@ public class SerialDateTests extends TestCase {
 	 * 9 Nov 2001 plus two months should be 9 Jan 2002.
 	 */
 	public void testAddMonthsTo9Nov2001() {
-		DayDate jan9Y2002 = this.nov9Y2001.addMonths(2);
+		DayDate jan9Y2002 = this.nov9Y2001.plusMonths(2);
 		DayDate answer = DayDateFactory.makeDate(9, 1, 2002);
 		assertEquals(answer, jan9Y2002);
 	}
@@ -110,7 +110,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testAddMonthsTo5Oct2003() {
 		DayDate d1 = DayDateFactory.makeDate(5, MonthConstants.OCTOBER, 2003);
-		DayDate d2 = d1.addMonths(2);
+		DayDate d2 = d1.plusMonths(2);
 		assertEquals(d2, DayDateFactory.makeDate(5, MonthConstants.DECEMBER, 2003));
 	}
 
@@ -119,7 +119,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testAddMonthsTo1Jan2003() {
 		DayDate d1 = DayDateFactory.makeDate(1, MonthConstants.JANUARY, 2003);
-		DayDate d2 = d1.addMonths(0);
+		DayDate d2 = d1.plusMonths(0);
 		assertEquals(d2, d1);
 	}
 
@@ -305,17 +305,17 @@ public class SerialDateTests extends TestCase {
 	public void testAddMonths() {
 		DayDate d1 = DayDateFactory.makeDate(31, 5, 2004);
 
-		DayDate d2 = d1.addMonths(1);
+		DayDate d2 = d1.plusMonths(1);
 		assertEquals(30, d2.getDayOfMonth());
 		assertEquals(6, d2.getMonth());
 		assertEquals(2004, d2.getYear());
 
-		DayDate d3 = d1.addMonths(2);
+		DayDate d3 = d1.plusMonths(2);
 		assertEquals(31, d3.getDayOfMonth());
 		assertEquals(7, d3.getMonth());
 		assertEquals(2004, d3.getYear());
 
-		DayDate d4 = d1.addMonths(1).addMonths(1);
+		DayDate d4 = d1.plusMonths(1).plusMonths(1);
 		assertEquals(30, d4.getDayOfMonth());
 		assertEquals(7, d4.getMonth());
 		assertEquals(2004, d4.getYear());
