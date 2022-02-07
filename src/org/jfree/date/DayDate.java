@@ -258,13 +258,13 @@ public abstract class DayDate implements Comparable,
 	/**
 	 * Rolls the date forward to the last day of the month.
 	 *
-	 * @param base the base date.
-	 *
 	 * @return a new serial date.
 	 */
-	public DayDate getEndOfCurrentMonth(DayDate base) {
-		int last = lastDayOfMonth(Month.fromInt(base.getMonth()), base.getYear());
-		return DayDateFactory.makeDate(last, base.getMonth(), base.getYear());
+	public DayDate getEndOfMonth() {
+		Month month = Month.fromInt(getMonth());
+		int year = getYear();
+		int lastDay = lastDayOfMonth(month, year);
+		return DayDateFactory.makeDate(lastDay, month, year);
 	}
 
 	/**
