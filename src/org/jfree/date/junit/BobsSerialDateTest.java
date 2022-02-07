@@ -411,26 +411,6 @@ public class BobsSerialDateTest extends TestCase {
 				DayDateFactory.makeDate(1, Month.FEBRUARY, 2008).getEndOfMonth());
 	}
 
-	public void testWeekInMonthToString() throws Exception {
-		assertEquals("First", WeekInMonth.FIRST.toString());
-		assertEquals("Second", WeekInMonth.SECOND.toString());
-		assertEquals("Third", WeekInMonth.THIRD.toString());
-		assertEquals("Fourth", WeekInMonth.FOURTH.toString());
-		assertEquals("Last", WeekInMonth.LAST.toString());
-	}
-
-	public void testRelativeToString() throws Exception {
-		assertEquals("Last", relativeToString(WeekdayRange.LAST.index));
-		assertEquals("Nearest", relativeToString(WeekdayRange.NEAREST.index));
-		assertEquals("Next", relativeToString(WeekdayRange.NEXT.index));
-
-		try {
-			relativeToString(-1000);
-			fail("Invalid relative code should throw exception");
-		} catch (IllegalArgumentException e) {
-		}
-	}
-
 	public void testMakeDateFromDDMMYYY() throws Exception {
 		DayDate date = DayDateFactory.makeDate(1, Month.JANUARY.index, 1900);
 		assertEquals(1, date.getDayOfMonth());

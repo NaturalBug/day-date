@@ -73,23 +73,6 @@ public abstract class DayDate implements Comparable,
 		WeekInMonth(int index) {
 			this.index = index;
 		}
-
-		public String toString() {
-
-			if (index == WeekInMonth.FIRST.index) {
-				return "First";
-			} else if (index == WeekInMonth.SECOND.index) {
-				return "Second";
-			} else if (index == WeekInMonth.THIRD.index) {
-				return "Third";
-			} else if (index == WeekInMonth.FOURTH.index) {
-				return "Fourth";
-			} else if (index == WeekInMonth.LAST.index) {
-				return "Last";
-			} else {
-				throw new IllegalArgumentException();
-			}
-		}
 	}
 
 	public enum DateInterval {
@@ -282,29 +265,6 @@ public abstract class DayDate implements Comparable,
 		int year = getYear();
 		int lastDay = lastDayOfMonth(month, year);
 		return DayDateFactory.makeDate(lastDay, month, year);
-	}
-
-	/**
-	 * Returns a string representing the supplied 'relative'.
-	 * <P>
-	 * Need to find a better approach.
-	 *
-	 * @param relative a constant representing the 'relative'.
-	 *
-	 * @return a string representing the supplied 'relative'.
-	 */
-	public static String relativeToString(int relative) {
-
-		if (relative == WeekdayRange.LAST.index) {
-			return "Last";
-		} else if (relative == WeekdayRange.NEAREST.index) {
-			return "Nearest";
-		} else if (relative == WeekdayRange.NEXT.index) {
-			return "Next";
-		} else {
-			throw new IllegalArgumentException();
-		}
-
 	}
 
 	/**
