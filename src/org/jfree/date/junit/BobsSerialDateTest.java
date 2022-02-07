@@ -412,17 +412,11 @@ public class BobsSerialDateTest extends TestCase {
 	}
 
 	public void testWeekInMonthToString() throws Exception {
-		assertEquals("First", weekInMonthToString(WeekInMonth.FIRST.index));
-		assertEquals("Second", weekInMonthToString(WeekInMonth.SECOND.index));
-		assertEquals("Third", weekInMonthToString(WeekInMonth.THIRD.index));
-		assertEquals("Fourth", weekInMonthToString(WeekInMonth.FOURTH.index));
-		assertEquals("Last", weekInMonthToString(WeekInMonth.LAST.index));
-
-		try {
-			weekInMonthToString(-1);
-			fail("Invalid week code should throw exception");
-		} catch (IllegalArgumentException e) {
-		}
+		assertEquals("First", WeekInMonth.FIRST.toString());
+		assertEquals("Second", WeekInMonth.SECOND.toString());
+		assertEquals("Third", WeekInMonth.THIRD.toString());
+		assertEquals("Fourth", WeekInMonth.FOURTH.toString());
+		assertEquals("Last", WeekInMonth.LAST.toString());
 	}
 
 	public void testRelativeToString() throws Exception {

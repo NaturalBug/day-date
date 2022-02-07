@@ -73,6 +73,23 @@ public abstract class DayDate implements Comparable,
 		WeekInMonth(int index) {
 			this.index = index;
 		}
+
+		public String toString() {
+
+			if (index == WeekInMonth.FIRST.index) {
+				return "First";
+			} else if (index == WeekInMonth.SECOND.index) {
+				return "Second";
+			} else if (index == WeekInMonth.THIRD.index) {
+				return "Third";
+			} else if (index == WeekInMonth.FOURTH.index) {
+				return "Fourth";
+			} else if (index == WeekInMonth.LAST.index) {
+				return "Last";
+			} else {
+				throw new IllegalArgumentException();
+			}
+		}
 	}
 
 	public enum DateInterval {
@@ -265,33 +282,6 @@ public abstract class DayDate implements Comparable,
 		int year = getYear();
 		int lastDay = lastDayOfMonth(month, year);
 		return DayDateFactory.makeDate(lastDay, month, year);
-	}
-
-	/**
-	 * Returns a string corresponding to the week-in-the-month code.
-	 * <P>
-	 * Need to find a better approach.
-	 *
-	 * @param count an integer code representing the week-in-the-month.
-	 *
-	 * @return a string corresponding to the week-in-the-month code.
-	 */
-	public static String weekInMonthToString(int count) {
-
-		if (count == WeekInMonth.FIRST.index) {
-			return "First";
-		} else if (count == WeekInMonth.SECOND.index) {
-			return "Second";
-		} else if (count == WeekInMonth.THIRD.index) {
-			return "Third";
-		} else if (count == WeekInMonth.FOURTH.index) {
-			return "Fourth";
-		} else if (count == WeekInMonth.LAST.index) {
-			return "Last";
-		} else {
-			throw new IllegalArgumentException();
-		}
-
 	}
 
 	/**
