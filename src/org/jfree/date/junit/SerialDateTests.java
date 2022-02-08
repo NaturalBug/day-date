@@ -58,6 +58,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.date.MonthConstants;
+import org.jfree.date.DateUtil;
 import org.jfree.date.Day;
 import org.jfree.date.DayDate;
 import org.jfree.date.DayDateFactory;
@@ -217,14 +218,14 @@ public class SerialDateTests extends TestCase {
 	 * 1900 is not a leap year.
 	 */
 	public void testIsNotLeapYear1900() {
-		assertTrue(!DayDate.isLeapYear(1900));
+		assertTrue(!DateUtil.isLeapYear(1900));
 	}
 
 	/**
 	 * 2000 is a leap year.
 	 */
 	public void testIsLeapYear2000() {
-		assertTrue(DayDate.isLeapYear(2000));
+		assertTrue(DateUtil.isLeapYear(2000));
 	}
 
 	/**
