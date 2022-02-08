@@ -332,72 +332,29 @@ public abstract class DayDate implements Comparable,
 		return getOrdinalDay() - date.getOrdinalDay();
 	}
 
-	/**
-	 * Returns true if this SerialDate represents the same date as the
-	 * specified SerialDate.
-	 *
-	 * @param other the date being compared to.
-	 *
-	 * @return <code>true</code> if this SerialDate represents the same date as
-	 *         the specified SerialDate.
-	 */
-	public abstract boolean isOn(DayDate other);
+	public boolean isOn(DayDate date) {
+		return getOrdinalDay() == date.getOrdinalDay();
+	}
 
-	/**
-	 * Returns true if this SerialDate represents an earlier date compared to
-	 * the specified SerialDate.
-	 *
-	 * @param other The date being compared to.
-	 *
-	 * @return <code>true</code> if this SerialDate represents an earlier date
-	 *         compared to the specified SerialDate.
-	 */
-	public abstract boolean isBefore(DayDate other);
+	public boolean isBefore(DayDate date) {
+		return getOrdinalDay() < date.getOrdinalDay();
+	}
 
-	/**
-	 * Returns true if this SerialDate represents the same date as the
-	 * specified SerialDate.
-	 *
-	 * @param other the date being compared to.
-	 *
-	 * @return <code>true<code> if this SerialDate represents the same date
-	 *         as the specified SerialDate.
-	 */
-	public abstract boolean isOnOrBefore(DayDate other);
+	public boolean isOnOrBefore(DayDate date) {
+		return getOrdinalDay() <= date.getOrdinalDay();
+	}
 
-	/**
-	 * Returns true if this SerialDate represents the same date as the
-	 * specified SerialDate.
-	 *
-	 * @param other the date being compared to.
-	 *
-	 * @return <code>true</code> if this SerialDate represents the same date
-	 *         as the specified SerialDate.
-	 */
-	public abstract boolean isAfter(DayDate other);
+	public boolean isAfter(DayDate other) {
+		return getOrdinalDay() > other.getOrdinalDay();
+	}
 
-	/**
-	 * Returns true if this SerialDate represents the same date as the
-	 * specified SerialDate.
-	 *
-	 * @param other the date being compared to.
-	 *
-	 * @return <code>true</code> if this SerialDate represents the same date
-	 *         as the specified SerialDate.
-	 */
-	public abstract boolean isOnOrAfter(DayDate other);
+	public boolean isOnOrAfter(DayDate other) {
+		return getOrdinalDay() >= other.getOrdinalDay();
+	}
 
-	/**
-	 * Returns <code>true</code> if this {@link DayDate} is within the
-	 * specified range (INCLUSIVE). The date order of d1 and d2 is not
-	 * important.
-	 *
-	 * @param d1 a boundary date for the range.
-	 * @param d2 the other boundary date for the range.
-	 *
-	 * @return A boolean.
-	 */
-	public abstract boolean isInRange(DayDate d1, DayDate d2);
+	public boolean isInRange(DayDate d1, DayDate d2) {
+		return isInRange(d1, d2, DateInterval.OPEN.index);
+	}
 
 	/**
 	 * Returns <code>true</code> if this {@link DayDate} is within the
