@@ -281,38 +281,6 @@ public class SpreadsheetDate extends DayDate {
 	}
 
 	/**
-	 * Returns true if this SerialDate is within the specified range (caller
-	 * specifies whether or not the end-points are included). The order of d1
-	 * and d2 is not important.
-	 *
-	 * @param d1      one boundary date for the range.
-	 * @param d2      a second boundary date for the range.
-	 * @param include a code that controls whether or not the start and end
-	 *                dates are included in the range.
-	 *
-	 * @return <code>true</code> if this SerialDate is within the specified
-	 *         range.
-	 */
-	public boolean isInRange(DayDate d1, DayDate d2,
-			int include) {
-		int s1 = d1.getOrdinalDay();
-		int s2 = d2.getOrdinalDay();
-		int start = Math.min(s1, s2);
-		int end = Math.max(s1, s2);
-
-		int s = getOrdinalDay();
-		if (include == DateInterval.OPEN.index) {
-			return (s >= start && s <= end);
-		} else if (include == DateInterval.CLOSED_LEFT.index) {
-			return (s >= start && s < end);
-		} else if (include == DateInterval.CLOSED_RIGHT.index) {
-			return (s > start && s <= end);
-		} else {
-			return (s > start && s < end);
-		}
-	}
-
-	/**
 	 * Calculate the serial number from the day, month and year.
 	 * <P>
 	 * 1-Jan-1900 = 2.

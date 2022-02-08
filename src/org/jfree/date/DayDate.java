@@ -79,16 +79,6 @@ public abstract class DayDate implements Comparable,
 		}
 	}
 
-	public enum DateInterval {
-		CLOSED(0), CLOSED_LEFT(1), CLOSED_RIGHT(2), OPEN(3);
-
-		public int index;
-
-		DateInterval(int index) {
-			this.index = index;
-		}
-	}
-
 	public enum WeekdayRange {
 		LAST(-1), NEXT(0), NEAREST(1);
 
@@ -353,21 +343,12 @@ public abstract class DayDate implements Comparable,
 	}
 
 	public boolean isInRange(DayDate d1, DayDate d2) {
-		return isInRange(d1, d2, DateInterval.OPEN.index);
+		return isInRange(d1, d2, DateInterval.OPEN);
 	}
 
-	/**
-	 * Returns <code>true</code> if this {@link DayDate} is within the
-	 * specified range (caller specifies whether or not the end-points are
-	 * included). The date order of d1 and d2 is not important.
-	 *
-	 * @param d1      a boundary date for the range.
-	 * @param d2      the other boundary date for the range.
-	 * @param include a code that controls whether or not the start and end
-	 *                dates are included in the range.
-	 *
-	 * @return A boolean.
-	 */
-	public abstract boolean isInRange(DayDate d1, DayDate d2,
-			int include);
+	public boolean isInRange(DayDate d1, DayDate d2, DateInterval interval) {
+		int left = Math.min(d1.getOrdinalDay(), d2.getOrdinalDay());
+		int right = Math.max(d1.getOrdinalDay(), d2.getOrdinalDay());
+		return interval.isIn(getOrdinalDay(), left, right);
+	}
 }
