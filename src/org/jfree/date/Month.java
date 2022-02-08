@@ -11,7 +11,7 @@ public enum Month {
     private static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols();
     private static final int[] LAST_DAY_OF_MONTH = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-    public int index;
+    private int index;
 
     Month(int index) {
         this.index = index;
@@ -56,5 +56,9 @@ public enum Month {
 
     private boolean matches(String s) {
         return s.equalsIgnoreCase(toString()) || s.equalsIgnoreCase(toShortString());
+    }
+
+    public int toInt() {
+        return index;
     }
 }

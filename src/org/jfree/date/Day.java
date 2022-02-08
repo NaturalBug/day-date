@@ -12,24 +12,21 @@ public enum Day {
     SATURDAY(Calendar.SATURDAY),
     SUNDAY(Calendar.SUNDAY);
 
-    public final int index;
+    private final int index;
     private static DateFormatSymbols dateSymbols = new DateFormatSymbols();
 
     Day(int day) {
         index = day;
     }
 
-    public static Day make(int index) throws IllegalArgumentException {
-        for (Day d : Day.values()) {
-            if (d.index == index) {
+    public static Day fromInt(int index) throws IllegalArgumentException {
+        for (Day d : Day.values())
+            if (d.index == index)
                 return d;
-            }
-        }
         throw new IllegalArgumentException(String.format("Illegal day index: %d.", index));
     }
 
     public static Day parse(String s) throws IllegalArgumentException {
-
         String[] shortWeekdayNames = dateSymbols.getShortWeekdays();
         String[] weekDayNames = dateSymbols.getWeekdays();
 
@@ -39,11 +36,14 @@ public enum Day {
                 return day;
             }
         }
-        throw new IllegalArgumentException(String.format("%s is not a valid weedkday string", s));
-
+        throw new IllegalArgumentException(String.format("%s is not a valid weekday string", s));
     }
 
     public String toString() {
         return dateSymbols.getWeekdays()[index];
+    }
+
+    public int toInt() {
+        return index;
     }
 }

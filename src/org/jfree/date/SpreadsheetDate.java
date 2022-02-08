@@ -175,7 +175,7 @@ public class SpreadsheetDate extends DayDate {
 	}
 
 	public SpreadsheetDate(int day, Month month, int year) {
-		this(day, month.index, year);
+		this(day, month.toInt(), year);
 	}
 
 	/**

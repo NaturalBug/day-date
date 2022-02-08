@@ -176,13 +176,13 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testStringToWeekday() {
 
-		int weekday = Day.parse("Wednesday").index;
-		assertEquals(Day.WEDNESDAY.index, weekday);
+		int weekday = Day.parse("Wednesday").toInt();
+		assertEquals(Day.WEDNESDAY.toInt(), weekday);
 
-		weekday = Day.parse(" Wednesday ").index;
-		assertEquals(Day.WEDNESDAY.index, weekday);
-		weekday = Day.parse("Wed").index;
-		assertEquals(Day.WEDNESDAY.index, weekday);
+		weekday = Day.parse(" Wednesday ").toInt();
+		assertEquals(Day.WEDNESDAY.toInt(), weekday);
+		weekday = Day.parse("Wed").toInt();
+		assertEquals(Day.WEDNESDAY.toInt(), weekday);
 
 	}
 
@@ -193,13 +193,13 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testStringToMonthCode() {
 
-		int m = Month.parse("January").index;
+		int m = Month.parse("January").toInt();
 		assertEquals(MonthConstants.JANUARY, m);
 
-		m = Month.parse(" January ").index;
+		m = Month.parse(" January ").toInt();
 		assertEquals(MonthConstants.JANUARY, m);
 
-		m = Month.parse("Jan").index;
+		m = Month.parse("Jan").toInt();
 		assertEquals(MonthConstants.JANUARY, m);
 
 	}
