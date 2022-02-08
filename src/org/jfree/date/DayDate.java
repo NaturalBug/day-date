@@ -328,18 +328,9 @@ public abstract class DayDate implements Comparable,
 		return Day.make((getOrdinalDay() + startingOffset) % 7 + 1);
 	}
 
-	/**
-	 * Returns the difference (in days) between this date and the specified
-	 * 'other' date.
-	 * <P>
-	 * The result is positive if this date is after the 'other' date and
-	 * negative if it is before the 'other' date.
-	 *
-	 * @param other the date being compared to.
-	 *
-	 * @return the difference between this and the other date.
-	 */
-	public abstract int compare(DayDate other);
+	public int daySince(DayDate date) {
+		return getOrdinalDay() - date.getOrdinalDay();
+	}
 
 	/**
 	 * Returns true if this SerialDate represents the same date as the
