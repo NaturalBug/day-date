@@ -119,24 +119,21 @@ public abstract class DayDate implements Comparable, Serializable {
 		int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
 		int resultYear = resultMonthAsOrdinal / 12;
 		Month resultMonth = Month.fromInt(resultMonthAsOrdinal % 12 + 1);
-		int lastDayOfResultMonth = DateUtil.lastDayOfMonth(resultMonth, resultYear);
-		int resultDay = Math.min(getDayOfMonth(), lastDayOfResultMonth);
+		int resultDay = correctLastDayOfMonth(getDayOfMonth(), resultMonth, resultYear);
 		return DayDateFactory.makeDate(resultDay, resultMonth, resultYear);
 	}
 
-	/**
-	 * Creates a new date by adding the specified number of years to the base
-	 * date.
-	 *
-	 * @param years the number of years to add (can be negative).
-	 *
-	 * @return A new date.
-	 */
 	public DayDate plusYears(int years) {
 		int resultYear = getYear() + years;
-		int lastDayOfMonthInResultYear = DateUtil.lastDayOfMonth(Month.fromInt(getMonth()), resultYear);
-		int resultDay = Math.min(getDayOfMonth(), lastDayOfMonthInResultYear);
+		int resultDay = correctLastDayOfMonth(getDayOfMonth(), Month.fromInt(getMonth()), resultYear);
 		return DayDateFactory.makeDate(resultDay, getMonth(), resultYear);
+	}
+
+	private int correctLastDayOfMonth(int day, Month month, int year) {
+		int lastDayOfMonth = DateUtil.lastDayOfMonth(month, year);
+		if (day > lastDayOfMonth)
+			day = lastDayOfMonth;
+		return day;
 	}
 
 	/**
