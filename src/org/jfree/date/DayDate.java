@@ -40,7 +40,6 @@ package org.jfree.date;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.text.*;
 import java.util.Calendar;
 
 /**
@@ -62,8 +61,14 @@ import java.util.Calendar;
  *
  * @author David Gilbert
  */
-public abstract class DayDate implements Comparable,
-		Serializable {
+public abstract class DayDate implements Comparable, Serializable {
+	public abstract int getOrdinalDay();
+
+	public abstract int getYear();
+
+	public abstract int getMonth();
+
+	public abstract int getDayOfMonth();
 
 	protected abstract Day getDayOfWeekForOrdinalZero();
 
@@ -199,15 +204,6 @@ public abstract class DayDate implements Comparable,
 	}
 
 	/**
-	 * Returns the serial number for the date, where 1 January 1900 = 2 (this
-	 * corresponds, almost, to the numbering system used in Microsoft Excel for
-	 * Windows and Lotus 1-2-3).
-	 *
-	 * @return the serial number for the date.
-	 */
-	public abstract int getOrdinalDay();
-
-	/**
 	 * Returns a <code>java.util.Date</code> equivalent to this date.
 	 *
 	 * @return The date.
@@ -227,27 +223,6 @@ public abstract class DayDate implements Comparable,
 		return getDayOfMonth() + "-" + Month.fromInt(getMonth())
 				+ "-" + getYear();
 	}
-
-	/**
-	 * Returns the year (assume a valid range of 1 to 9999).
-	 *
-	 * @return the year.
-	 */
-	public abstract int getYear();
-
-	/**
-	 * Returns the month (January = 1, February = 2, March = 3).
-	 *
-	 * @return the month of the year.
-	 */
-	public abstract int getMonth();
-
-	/**
-	 * Returns the day of the month.
-	 *
-	 * @return the day of the month.
-	 */
-	public abstract int getDayOfMonth();
 
 	public Day getDayOfWeek() {
 		Day startingDay = getDayOfWeekForOrdinalZero();
