@@ -1,7 +1,7 @@
 package org.jfree.date;
 
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.text.DateFormatSymbols;
 
 public enum Day {
     MONDAY(Calendar.MONDAY),

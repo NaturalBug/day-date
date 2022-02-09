@@ -22,4 +22,13 @@ public class DateUtil {
 		else
 			return month.lastDay();
 	}
+
+	public static int leapYearCount(int yyyy) {
+
+		int leap4 = (yyyy - 1896) / 4;
+		int leap100 = (yyyy - 1800) / 100;
+		int leap400 = (yyyy - 1600) / 400;
+		return leap4 - leap100 + leap400;
+
+	}
 }

@@ -57,7 +57,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.jfree.date.MonthConstants;
 import org.jfree.date.DateUtil;
 import org.jfree.date.Day;
 import org.jfree.date.DayDate;
@@ -94,7 +93,7 @@ public class SerialDateTests extends TestCase {
 	 * Problem set up.
 	 */
 	protected void setUp() {
-		this.nov9Y2001 = DayDateFactory.makeDate(9, MonthConstants.NOVEMBER, 2001);
+		this.nov9Y2001 = DayDateFactory.makeDate(9, Month.NOVEMBER, 2001);
 	}
 
 	/**
@@ -110,16 +109,16 @@ public class SerialDateTests extends TestCase {
 	 * A test case for a reported bug, now fixed.
 	 */
 	public void testAddMonthsTo5Oct2003() {
-		DayDate d1 = DayDateFactory.makeDate(5, MonthConstants.OCTOBER, 2003);
+		DayDate d1 = DayDateFactory.makeDate(5, Month.OCTOBER, 2003);
 		DayDate d2 = d1.plusMonths(2);
-		assertEquals(d2, DayDateFactory.makeDate(5, MonthConstants.DECEMBER, 2003));
+		assertEquals(d2, DayDateFactory.makeDate(5, Month.DECEMBER, 2003));
 	}
 
 	/**
 	 * A test case for a reported bug, now fixed.
 	 */
 	public void testAddMonthsTo1Jan2003() {
-		DayDate d1 = DayDateFactory.makeDate(1, MonthConstants.JANUARY, 2003);
+		DayDate d1 = DayDateFactory.makeDate(1, Month.JANUARY, 2003);
 		DayDate d2 = d1.plusMonths(0);
 		assertEquals(d2, d1);
 	}
@@ -152,7 +151,7 @@ public class SerialDateTests extends TestCase {
 	 * The Monday nearest to 22nd January 1970 falls on the 19th.
 	 */
 	public void testMondayNearest22Jan1970() {
-		DayDate jan22Y1970 = DayDateFactory.makeDate(22, MonthConstants.JANUARY, 1970);
+		DayDate jan22Y1970 = DayDateFactory.makeDate(22, Month.JANUARY, 1970);
 		DayDate mondayNearest = jan22Y1970.getNearestDayOfWeek(Day.MONDAY);
 		assertEquals(19, mondayNearest.getDayOfMonth());
 	}
@@ -194,13 +193,13 @@ public class SerialDateTests extends TestCase {
 	public void testStringToMonthCode() {
 
 		int m = Month.parse("January").toInt();
-		assertEquals(MonthConstants.JANUARY, m);
+		assertEquals(Month.JANUARY, m);
 
 		m = Month.parse(" January ").toInt();
-		assertEquals(MonthConstants.JANUARY, m);
+		assertEquals(Month.JANUARY, m);
 
 		m = Month.parse("Jan").toInt();
-		assertEquals(MonthConstants.JANUARY, m);
+		assertEquals(Month.JANUARY, m);
 
 	}
 
@@ -209,7 +208,7 @@ public class SerialDateTests extends TestCase {
 	 */
 	public void testMonthCodeToStringCode() {
 
-		String test = Month.fromInt(MonthConstants.DECEMBER).toString();
+		String test = Month.DECEMBER.toString();
 		assertEquals("December", test);
 
 	}
@@ -232,35 +231,35 @@ public class SerialDateTests extends TestCase {
 	 * The number of leap years from 1900 up-to-and-including 1899 is 0.
 	 */
 	public void testLeapYearCount1899() {
-		assertEquals(DayDate.leapYearCount(1899), 0);
+		assertEquals(DateUtil.leapYearCount(1899), 0);
 	}
 
 	/**
 	 * The number of leap years from 1900 up-to-and-including 1903 is 0.
 	 */
 	public void testLeapYearCount1903() {
-		assertEquals(DayDate.leapYearCount(1903), 0);
+		assertEquals(DateUtil.leapYearCount(1903), 0);
 	}
 
 	/**
 	 * The number of leap years from 1900 up-to-and-including 1904 is 1.
 	 */
 	public void testLeapYearCount1904() {
-		assertEquals(DayDate.leapYearCount(1904), 1);
+		assertEquals(DateUtil.leapYearCount(1904), 1);
 	}
 
 	/**
 	 * The number of leap years from 1900 up-to-and-including 1999 is 24.
 	 */
 	public void testLeapYearCount1999() {
-		assertEquals(DayDate.leapYearCount(1999), 24);
+		assertEquals(DateUtil.leapYearCount(1999), 24);
 	}
 
 	/**
 	 * The number of leap years from 1900 up-to-and-including 2000 is 25.
 	 */
 	public void testLeapYearCount2000() {
-		assertEquals(DayDate.leapYearCount(2000), 25);
+		assertEquals(DateUtil.leapYearCount(2000), 25);
 	}
 
 	/**

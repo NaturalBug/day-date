@@ -39,93 +39,54 @@
 package org.jfree.date;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Calendar;
+import java.util.*;
 
 /**
- * An abstract class that defines our requirements for manipulating dates,
- * without tying down a particular implementation.
- *
- * Requirement 1 : match at least what Excel does for dates;
- * Requirement 2 : class is immutable;
+ * An abstract class that represents immutable dates with a precision of
+ * one day. The implementation will map each date to an integer that
+ * represents an ordinal number of days from some fixed origin.
  *
  * Why not just use java.util.Date? We will, when it makes sense. At times,
  * java.util.Date can be *too* precise - it represents an instant in time,
  * accurate to 1/1000th of a second (with the date itself depending on the
- * time-zone). Sometimes we just want to represent a particular day (e.g. 21
+ * time-zone). Sometimes we just want to represent a particular day (e.g.
  * January 2015) without concerning ourselves about the time of day, or the
- * time-zone, or anything else. That's what we've defined SerialDate for.
+ * time-zone, or anything else. That's what we've defined DayDate for.
  *
- * You can call getInstance() to get a concrete subclass of SerialDate,
- * without worrying about the exact implementation.
+ * Use DayDateFactory.makeDate to create an instance.
  *
  * @author David Gilbert
+ * @author Robert C. Martin did a lot of refactoring.
  */
 public abstract class DayDate implements Comparable, Serializable {
 	public abstract int getOrdinalDay();
 
 	public abstract int getYear();
 
-	public abstract int getMonth();
+	public abstract Month getMonth();
 
 	public abstract int getDayOfMonth();
 
 	protected abstract Day getDayOfWeekForOrdinalZero();
 
-	/**
-	 * Returns the number of leap years from 1900 to the specified year
-	 * INCLUSIVE.
-	 * <P>
-	 * Note that 1900 is not a leap year.
-	 *
-	 * @param yyyy the year (in the range 1900 to 9999).
-	 *
-	 * @return the number of leap years from 1900 to the specified year.
-	 */
-	public static int leapYearCount(int yyyy) {
-
-		int leap4 = (yyyy - 1896) / 4;
-		int leap100 = (yyyy - 1800) / 100;
-		int leap400 = (yyyy - 1600) / 400;
-		return leap4 - leap100 + leap400;
-
-	}
-
-	/**
-	 * Creates a new date by adding the specified number of days to the base
-	 * date.
-	 *
-	 * @param days the number of days to add (can be negative).
-	 *
-	 * @return a new date.
-	 */
 	public DayDate plusDays(int days) {
 		return DayDateFactory.makeDate(getOrdinalDay() + days);
 	}
 
-	/**
-	 * Creates a new date by adding the specified number of months to the base
-	 * date.
-	 * <P>
-	 * If the base date is close to the end of the month, the day on the result
-	 * may be adjusted slightly: 31 May + 1 month = 30 June.
-	 *
-	 * @param months the number of months to add (can be negative).
-	 *
-	 * @return a new date.
-	 */
 	public DayDate plusMonths(int months) {
-		int thisMonthAsOrdinal = 12 * getYear() + getMonth() - 1;
-		int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
-		int resultYear = resultMonthAsOrdinal / 12;
-		Month resultMonth = Month.fromInt(resultMonthAsOrdinal % 12 + 1);
+		int thisMonthAsOrdinal = getMonth().toInt() - Month.JANUARY.toInt();
+		int thisMonthAndYearAsOrdinal = 12 * getYear() + thisMonthAsOrdinal;
+		int resultMonthAndYearAsOrdinal = thisMonthAndYearAsOrdinal + months;
+		int resultYear = resultMonthAndYearAsOrdinal / 12;
+		int resultMonthAsOrdinal = resultMonthAndYearAsOrdinal % 12 + Month.JANUARY.toInt();
+		Month resultMonth = Month.fromInt(resultMonthAsOrdinal);
 		int resultDay = correctLastDayOfMonth(getDayOfMonth(), resultMonth, resultYear);
 		return DayDateFactory.makeDate(resultDay, resultMonth, resultYear);
 	}
 
 	public DayDate plusYears(int years) {
 		int resultYear = getYear() + years;
-		int resultDay = correctLastDayOfMonth(getDayOfMonth(), Month.fromInt(getMonth()), resultYear);
+		int resultDay = correctLastDayOfMonth(getDayOfMonth(), getMonth(), resultYear);
 		return DayDateFactory.makeDate(resultDay, getMonth(), resultYear);
 	}
 
@@ -136,15 +97,6 @@ public abstract class DayDate implements Comparable, Serializable {
 		return day;
 	}
 
-	/**
-	 * Returns the latest date that falls on the specified day-of-the-week and
-	 * is BEFORE the base date.
-	 *
-	 * @param targetDayOfWeek a code for the target day-of-the-week.
-	 *
-	 * @return the latest date that falls on the specified day-of-the-week and
-	 *         is BEFORE the base date.
-	 */
 	public DayDate getPreviousDayOfWeek(Day targetDayOfWeek) {
 		int offsetToTarget = targetDayOfWeek.toInt() - getDayOfWeek().toInt();
 		if (offsetToTarget >= 0)
@@ -152,15 +104,6 @@ public abstract class DayDate implements Comparable, Serializable {
 		return plusDays(offsetToTarget);
 	}
 
-	/**
-	 * Returns the earliest date that falls on the specified day-of-the-week
-	 * and is AFTER the base date.
-	 *
-	 * @param targetDayOfWeek a code for the target day-of-the-week.
-	 *
-	 * @return the earliest date that falls on the specified day-of-the-week
-	 *         and is AFTER the base date.
-	 */
 	public DayDate getFollowingDayOfWeek(Day targetDayOfWeek) {
 		int offsetToTarget = targetDayOfWeek.toInt() - getDayOfWeek().toInt();
 		if (offsetToTarget <= 0)
@@ -168,15 +111,6 @@ public abstract class DayDate implements Comparable, Serializable {
 		return plusDays(offsetToTarget);
 	}
 
-	/**
-	 * Returns the date that falls on the specified day-of-the-week and is
-	 * CLOSEST to the base date.
-	 *
-	 * @param targetDay a code for the target day-of-the-week.
-	 *
-	 * @return the date that falls on the specified day-of-the-week and is
-	 *         CLOSEST to the base date.
-	 */
 	public DayDate getNearestDayOfWeek(final Day targetDay) {
 		int offsetToThisWeeksTarget = targetDay.toInt() - getDayOfWeek().toInt();
 		int offsetToFutureTarget = (offsetToThisWeeksTarget + 7) % 7;
@@ -188,59 +122,45 @@ public abstract class DayDate implements Comparable, Serializable {
 			return plusDays(offsetToFutureTarget);
 	}
 
-	/**
-	 * Rolls the date forward to the last day of the month.
-	 *
-	 * @return a new serial date.
-	 */
 	public DayDate getEndOfMonth() {
-		Month month = Month.fromInt(getMonth());
+		Month month = getMonth();
 		int year = getYear();
 		int lastDay = DateUtil.lastDayOfMonth(month, year);
 		return DayDateFactory.makeDate(lastDay, month, year);
 	}
 
-	/**
-	 * Returns a <code>java.util.Date</code> equivalent to this date.
-	 *
-	 * @return The date.
-	 */
 	public Date toDate() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(getYear(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);
+		final Calendar calendar = Calendar.getInstance();
+		int ordinalMonth = getMonth().toInt() - Month.JANUARY.toInt();
+		calendar.set(getYear(), ordinalMonth, getDayOfMonth(), 0, 0, 0);
 		return calendar.getTime();
 	}
 
-	/**
-	 * Converts the date to a string.
-	 *
-	 * @return a string representation of the date.
-	 */
 	public String toString() {
-		return getDayOfMonth() + "-" + Month.fromInt(getMonth())
-				+ "-" + getYear();
+		return String.format("%02d-%s-%d", getDayOfMonth(), getMonth(), getYear());
 	}
 
 	public Day getDayOfWeek() {
 		Day startingDay = getDayOfWeekForOrdinalZero();
 		int startingOffset = startingDay.toInt() - Day.SUNDAY.toInt();
-		return Day.fromInt((getOrdinalDay() + startingOffset) % 7 + 1);
+		int ordinalOfDayOfWeek = (getOrdinalDay() + startingOffset) % 7;
+		return Day.fromInt(ordinalOfDayOfWeek + Day.SUNDAY.toInt());
 	}
 
 	public int daySince(DayDate date) {
 		return getOrdinalDay() - date.getOrdinalDay();
 	}
 
-	public boolean isOn(DayDate date) {
-		return getOrdinalDay() == date.getOrdinalDay();
+	public boolean isOn(DayDate other) {
+		return getOrdinalDay() == other.getOrdinalDay();
 	}
 
-	public boolean isBefore(DayDate date) {
-		return getOrdinalDay() < date.getOrdinalDay();
+	public boolean isBefore(DayDate other) {
+		return getOrdinalDay() < other.getOrdinalDay();
 	}
 
-	public boolean isOnOrBefore(DayDate date) {
-		return getOrdinalDay() <= date.getOrdinalDay();
+	public boolean isOnOrBefore(DayDate other) {
+		return getOrdinalDay() <= other.getOrdinalDay();
 	}
 
 	public boolean isAfter(DayDate other) {
